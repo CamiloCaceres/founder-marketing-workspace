@@ -5,16 +5,87 @@
   "icon": "Mail",
   "category": "business",
   "author": "Houston Founder Marketing",
-  "tags": ["marketing", "lifecycle", "email", "activation", "newsletter", "retention"],
+  "tags": [
+    "marketing",
+    "lifecycle",
+    "email",
+    "activation",
+    "newsletter",
+    "retention"
+  ],
   "tabs": [
-    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
-    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
-    { "id": "files", "label": "Files", "builtIn": "files" },
-    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+    {
+      "id": "overview",
+      "label": "Overview",
+      "customComponent": "Dashboard"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "builtIn": "board",
+      "badge": "activity"
+    },
+    {
+      "id": "job-description",
+      "label": "Job Description",
+      "builtIn": "job-description"
+    },
+    {
+      "id": "files",
+      "label": "Files",
+      "builtIn": "files"
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "builtIn": "integrations"
+    }
   ],
   "defaultTab": "overview",
   "agentSeeds": {
     "outputs.json": "[]",
     ".houston/activity.json": "[{\"id\":\"ad5af9d8-6ab9-408f-aeca-9140916b9b0b\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: your email platform (Mailchimp, Customer.io, ConvertKit, Beehiiv, Loops, Resend — connect via Composio or name it), your voice (connected inbox via Composio to sample your sent messages, or paste 2-3 emails), and your product milestones (signup → activation → aha → habit → upgrade — 3-5 events). Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
-  }
+  },
+  "useCases": [
+    {
+      "category": "Activation",
+      "title": "Draft a 5-email welcome series for new signups",
+      "prompt": "Draft a 5-email welcome series for new signups.",
+      "description": "Day 0 / 1 / 3 / 7 / 14 sequence (override any cadence). Each email gets subject, preview, body, CTA, and the success metric I'd watch to judge it.",
+      "outcome": "A full sequence at sequences/welcome-{variant}.md. Drop it into your email platform and ship.",
+      "skill": "draft-welcome-sequence"
+    },
+    {
+      "category": "Activation",
+      "title": "Re-activate users who signed up but never activated",
+      "prompt": "Design a re-activation drip for users who signed up but never activated.",
+      "description": "Event-triggered drip: the trigger event, frequency rules, branching if the user takes the desired action, and drafted copy per email. Honest about when to stop emailing.",
+      "outcome": "Drip plan at drips/{slug}.md with every email drafted and every branch labeled.",
+      "skill": "design-lifecycle-campaign"
+    },
+    {
+      "category": "Newsletter",
+      "title": "Draft this week's newsletter",
+      "prompt": "Draft this week's newsletter — here's what shipped: {paste details}.",
+      "description": "Subject + preview + body, with one clear through-line (not 5 updates glued together). I can pull source material from the SEO agent's outputs index if you point me there.",
+      "outcome": "Newsletter at newsletters/{YYYY-MM-DD}.md ready for your ESP.",
+      "skill": "write-newsletter"
+    },
+    {
+      "category": "Retention",
+      "title": "Save a downgrade without the guilt trip",
+      "prompt": "Draft a save email for accounts that downgraded from Pro to Free.",
+      "description": "No guilt tactics, no fake scarcity. Offer a genuine option (pause / downgrade further / concierge help / refund). Tone matches your voice.",
+      "outcome": "Save email at saves/{persona-or-account}.md — one version you can send or adapt.",
+      "skill": "draft-churn-save"
+    },
+    {
+      "category": "Announcements",
+      "title": "Product announcement: email + in-app, coordinated",
+      "prompt": "Plan the email + in-app announcement for {feature}.",
+      "description": "I draft the announcement email AND the matching in-app copy (banner / modal / empty-state nudge), keyed to the Head of Marketing's launch plan if one exists.",
+      "outcome": "A full announcement set at announcements/{feature-slug}.md — email body + in-app strings together.",
+      "skill": "plan-product-announcement"
+    }
+  ]
 }

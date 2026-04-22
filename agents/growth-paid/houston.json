@@ -5,16 +5,103 @@
   "icon": "TrendingUp",
   "category": "business",
   "author": "Houston Founder Marketing",
-  "tags": ["marketing", "growth", "paid-ads", "cro", "experimentation", "analytics"],
+  "tags": [
+    "marketing",
+    "growth",
+    "paid-ads",
+    "cro",
+    "experimentation",
+    "analytics"
+  ],
   "tabs": [
-    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
-    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
-    { "id": "files", "label": "Files", "builtIn": "files" },
-    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+    {
+      "id": "overview",
+      "label": "Overview",
+      "customComponent": "Dashboard"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "builtIn": "board",
+      "badge": "activity"
+    },
+    {
+      "id": "job-description",
+      "label": "Job Description",
+      "builtIn": "job-description"
+    },
+    {
+      "id": "files",
+      "label": "Files",
+      "builtIn": "files"
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "builtIn": "integrations"
+    }
   ],
   "defaultTab": "overview",
   "agentSeeds": {
     "outputs.json": "[]",
     ".houston/activity.json": "[{\"id\":\"b7f2e1a4-3c9d-4e8b-9a2f-1d6c0e5b4a73\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: 1) your primary acquisition channels today  2) your analytics stack  3) your primary conversion event. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste. After this I can plan campaigns, critique landing pages, design A/B tests, spec tracking, and run funnel reviews.\",\"status\":\"needs_you\"}]"
-  }
+  },
+  "useCases": [
+    {
+      "category": "Campaigns",
+      "title": "Plan a Google Ads search campaign end-to-end",
+      "prompt": "Plan a Google Ads search campaign for {keyword cluster}.",
+      "description": "A full brief: audience, keyword/placement strategy, ad-group structure, suggested budget, landing-page requirements, KPI targets. Ready to hand to an agency or run yourself.",
+      "outcome": "Campaign brief at campaigns/{channel}-{slug}.md — spec the experiment before you spend a dollar.",
+      "skill": "plan-paid-campaign"
+    },
+    {
+      "category": "Competitive",
+      "title": "Teardown of a competitor's ads",
+      "prompt": "What ads is {competitor} running this week? Teardown the messaging angles.",
+      "description": "I pull their live creative from Meta Ad Library / LinkedIn Ad Library / Google Ads Transparency (via Composio), then extract the angles, hooks, and offers they're testing.",
+      "outcome": "Ad teardown at competitor-ads/{competitor}-{YYYY-MM-DD}.md — the best research for your own ad copy.",
+      "skill": "monitor-competitor-ads"
+    },
+    {
+      "category": "Ad copy",
+      "title": "Draft ad copy grounded in real customer language",
+      "prompt": "Draft 10 ad variants grounded in real customer language.",
+      "description": "I pull phrases from your call insights (or competitor reviews via Composio) and write headlines + descriptions that sound like your customers talking — not like a marketer pitching.",
+      "outcome": "Variants at ad-copy/{campaign-slug}.md with the source quote alongside each headline.",
+      "skill": "generate-ad-copy"
+    },
+    {
+      "category": "CRO",
+      "title": "Rigorously critique a landing page",
+      "prompt": "Critique the landing page at {url}. Score each dimension and give me a fix list.",
+      "description": "I score 6 dimensions 0–3: headline clarity, value prop, social proof, CTA, objection handling, visual hierarchy. Then a prioritized fix list — not a generic lecture.",
+      "outcome": "Teardown at cro-critiques/{url-slug}-{YYYY-MM-DD}.md. Copy the fixes into your tracker.",
+      "skill": "critique-landing-page"
+    },
+    {
+      "category": "Experimentation",
+      "title": "Design a proper A/B test, not a coin flip",
+      "prompt": "Design an A/B test for the pricing page headline.",
+      "description": "Full spec: hypothesis (PICOT), control vs variant, primary + secondary metrics, sample-size estimate with MDE + power, duration, and go/no-go criteria — so you don't ship the loser.",
+      "outcome": "Test spec at ab-tests/{slug}.md. Paste into your experimentation tool.",
+      "skill": "design-ab-test"
+    },
+    {
+      "category": "Measurement",
+      "title": "Spec event tracking for your key funnel",
+      "prompt": "Spec the event tracking plan for sign-up → activation. Include UTM naming rules.",
+      "description": "Event names, triggers, properties, and owner per step. Plus a UTM matrix so paid / social / email are comparable in GA4 or your analytics.",
+      "outcome": "Tracking plan at tracking-plans/{slug}.md you can hand to engineering.",
+      "skill": "setup-tracking"
+    },
+    {
+      "category": "Measurement",
+      "title": "Weekly funnel readout — find the leak",
+      "prompt": "Give me the weekly funnel readout — where are we leaking?",
+      "description": "I compute conversion at each step (from your connected analytics or paste), flag the biggest drop, and recommend 2–3 experiments ranked by expected lift vs effort.",
+      "outcome": "Review at funnel-reviews/{YYYY-MM-DD}.md — clear next actions, not a dashboard dump.",
+      "skill": "analyze-funnel"
+    }
+  ]
 }

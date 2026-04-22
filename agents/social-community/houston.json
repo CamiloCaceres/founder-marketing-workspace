@@ -5,16 +5,104 @@
   "icon": "MessageCircle",
   "category": "business",
   "author": "Houston Founder Marketing",
-  "tags": ["marketing", "social", "linkedin", "twitter", "reddit", "community", "podcast"],
+  "tags": [
+    "marketing",
+    "social",
+    "linkedin",
+    "twitter",
+    "reddit",
+    "community",
+    "podcast"
+  ],
   "tabs": [
-    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
-    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
-    { "id": "files", "label": "Files", "builtIn": "files" },
-    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+    {
+      "id": "overview",
+      "label": "Overview",
+      "customComponent": "Dashboard"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "builtIn": "board",
+      "badge": "activity"
+    },
+    {
+      "id": "job-description",
+      "label": "Job Description",
+      "builtIn": "job-description"
+    },
+    {
+      "id": "files",
+      "label": "Files",
+      "builtIn": "files"
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "builtIn": "integrations"
+    }
   ],
   "defaultTab": "overview",
   "agentSeeds": {
     "outputs.json": "[]",
     ".houston/activity.json": "[{\"id\":\"7a4e0c5a-9b2f-4d1b-8f6e-c0b4d2a7e9f3\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: which social platforms you're active on (connected via Composio if possible), how you write (connected inbox via Composio, or 2-3 recent posts pasted), and the 3-5 topics / POV you post about. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
-  }
+  },
+  "useCases": [
+    {
+      "category": "Posts",
+      "title": "Draft a LinkedIn post in your voice",
+      "prompt": "Draft a LinkedIn post about {topic} in my voice.",
+      "description": "Hook in the first line, whitespace, one clear takeaway, CTA or question to spark replies. Uses your saved voice samples so it doesn't sound like AI.",
+      "outcome": "Post draft at posts/linkedin-{slug}.md — paste into LinkedIn when you're ready.",
+      "skill": "draft-linkedin-post"
+    },
+    {
+      "category": "Posts",
+      "title": "Draft an X thread on a specific idea",
+      "prompt": "Draft a 7-tweet X thread on {topic}.",
+      "description": "Hook tweet, numbered progression, and a CTA tweet at the end. Each tweet fits the 280-char budget with room for edits.",
+      "outcome": "Thread at threads/x-{slug}.md — copy tweet-by-tweet into your scheduler.",
+      "skill": "draft-x-thread"
+    },
+    {
+      "category": "Community",
+      "title": "Reply to a Reddit thread the right way",
+      "prompt": "Draft a Reddit reply to {thread URL}. Value-first, no pitch.",
+      "description": "I pull the source thread via Composio, then draft a value-first reply. Rule of thumb: helpful first, link only if it truly belongs.",
+      "outcome": "Reply at community-replies/{source-slug}.md you can paste in after a final read.",
+      "skill": "draft-community-reply"
+    },
+    {
+      "category": "Planning",
+      "title": "Plan the week's social content across platforms",
+      "prompt": "Plan this week's social content across LinkedIn and X.",
+      "description": "Mon–Fri plan per platform, keyed to your topics, mixing original posts with repurposed content from the SEO agent's outputs index (zero duplicate angles).",
+      "outcome": "Calendar at social-calendars/{YYYY-WNN}.md + appended to the living social-calendar.md.",
+      "skill": "plan-social-calendar"
+    },
+    {
+      "category": "Planning",
+      "title": "Scan your X timeline for what to engage with",
+      "prompt": "Scan my X timeline and surface what's worth engaging with.",
+      "description": "I filter your feed for relevance to your topics and engagement opportunities, then suggest concrete replies — no more doom-scrolling looking for something to comment on.",
+      "outcome": "Digest at feed-digests/x-{YYYY-MM-DD}.md with suggested reply drafts per opportunity.",
+      "skill": "monitor-social-feed"
+    },
+    {
+      "category": "Planning",
+      "title": "Weekly LinkedIn digest — how did your posts do?",
+      "prompt": "Give me the weekly LinkedIn digest — how did my posts do and what's my network posting?",
+      "description": "Stats on your own posts (reach, engagement, new followers) plus notable posts in your network worth commenting on. 5-min read.",
+      "outcome": "Digest at linkedin-digests/{YYYY-MM-DD}.md. Skim it Monday morning.",
+      "skill": "digest-linkedin-activity"
+    },
+    {
+      "category": "Distribution",
+      "title": "Get yourself booked on podcasts your ICP listens to",
+      "prompt": "Draft podcast outreach pitches for 5 shows our ICP listens to.",
+      "description": "I identify target shows by audience fit and draft per-show pitches — hook based on your positioning, angle, proof points, and a clear ask. No template spam.",
+      "outcome": "Pitches at podcast-pitches/{YYYY-MM-DD}.md — one per show, ready to send from your own email.",
+      "skill": "pitch-podcast"
+    }
+  ]
 }

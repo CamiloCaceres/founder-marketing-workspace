@@ -40,6 +40,7 @@ agents/{agent-id}/
   "tabs": [
     { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
     { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
+    { "id": "job-description", "label": "Job Description", "builtIn": "job-description" },
     { "id": "files", "label": "Files", "builtIn": "files" },
     { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
   ],
@@ -47,7 +48,17 @@ agents/{agent-id}/
   "agentSeeds": {
     "outputs.json": "[]",
     ".houston/activity.json": "[{\"id\":\"{uuid}\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: {T1}, {T2}, {T3}. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
-  }
+  },
+  "useCases": [
+    {
+      "category": "{Group label — e.g. Launches, Audits, CRO}",
+      "title": "{short display title, opinionated verb phrase}",
+      "prompt": "{exact ready-to-send text with {placeholders}}",
+      "description": "{1–2 sentences: what the agent does when you send this}",
+      "outcome": "{what the user walks away with — concrete path/artifact}",
+      "skill": "{skill-id this use case primarily invokes}"
+    }
+  ]
 }
 ```
 
@@ -61,7 +72,43 @@ agents/{agent-id}/
   Our dashboards read `outputs.json` → seed to `[]`.
 - `agentSeeds` MUST include the `.houston/activity.json` onboarding
   card (seeds the "Needs you" column on first install).
+- Include the `job-description` built-in tab. Houston renders it as
+  "Job Description" with four sub-tabs: **Use Cases · Instructions ·
+  Skills · Learnings**. Our `useCases` array populates the first
+  sub-tab, which is the founder's primary "what can this agent do for
+  me" surface.
 - Use a distinct `icon` (Lucide name) and `tags` per agent.
+
+### `useCases` — the founder-facing prompt menu
+
+Every role agent SHOULD declare 5–10 use cases. These render in Job
+Description → Use Cases as click-to-copy cards, grouped by `category`.
+Users learn what the agent can do by seeing opinionated examples, not
+by reading skill descriptions.
+
+**Writing rules (important — bad use cases are worse than none):**
+
+1. **Be concrete, not generic.** ❌ "Analyze my marketing." ✅
+   "Give me the weekly funnel readout — where are we leaking?"
+2. **Lead the `title` with a verb + outcome.** ❌ "Launch planning
+   skill." ✅ "Sequence a 2-week launch across every agent."
+3. **`prompt` is what the user types.** Use natural phrasing with
+   `{placeholders}` they'll fill in — not imperative robot-speak.
+4. **`description` is 1–2 sentences, no marketing words.** Describe
+   what the agent actually does step-by-step. "Crawls X, extracts Y,
+   writes Z."
+5. **`outcome` is concrete.** Name the file path and what the user
+   does with it. "A brief at `research/{slug}.md` you can forward to
+   any other agent."
+6. **Group by `category`.** 2–4 categories per agent. Examples:
+   `Foundation / Competitive / Launches / Research / Reviews` for
+   HoM; `Audits / Strategy / Content / Repurposing / Backlinks` for
+   SEO. Categories are free-form strings but stay short (1–2 words).
+7. **One skill per use case.** `skill` points to the SKILL.md that
+   answers this prompt. If two prompts invoke the same skill with
+   different framing (e.g. "single-competitor teardown" vs "N-competitor
+   weekly digest"), that's fine — two use cases, one skill.
+8. **No fluff.** If you can cut an adjective, cut it.
 
 ## `CLAUDE.md` template (50-100 lines)
 

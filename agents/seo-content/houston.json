@@ -5,16 +5,119 @@
   "icon": "Search",
   "category": "business",
   "author": "Houston Founder Marketing",
-  "tags": ["marketing", "seo", "content", "blog", "ai-search", "backlinks"],
+  "tags": [
+    "marketing",
+    "seo",
+    "content",
+    "blog",
+    "ai-search",
+    "backlinks"
+  ],
   "tabs": [
-    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
-    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
-    { "id": "files", "label": "Files", "builtIn": "files" },
-    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+    {
+      "id": "overview",
+      "label": "Overview",
+      "customComponent": "Dashboard"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "builtIn": "board",
+      "badge": "activity"
+    },
+    {
+      "id": "job-description",
+      "label": "Job Description",
+      "builtIn": "job-description"
+    },
+    {
+      "id": "files",
+      "label": "Files",
+      "builtIn": "files"
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "builtIn": "integrations"
+    }
   ],
   "defaultTab": "overview",
   "agentSeeds": {
     "outputs.json": "[]",
     ".houston/activity.json": "[{\"id\":\"b82f93e4-304c-4055-8899-453caaeca4e5\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: your domain, your existing content (connected CMS or top post URLs), and which SEO tooling you've connected via Composio. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
-  }
+  },
+  "useCases": [
+    {
+      "category": "Audits",
+      "title": "Run a full SEO audit of your site",
+      "prompt": "Run an SEO audit of my site.",
+      "description": "On-page + technical audit via your connected SEO tool (Semrush / Ahrefs / Firecrawl via Composio). I rank issues by impact × ease and give you a fix list — not a wall of warnings.",
+      "outcome": "A scored audit at seo-audits/{domain}-{YYYY-MM-DD}.md — 10 prioritized fixes you can actually ship this week.",
+      "skill": "audit-site-seo"
+    },
+    {
+      "category": "Audits",
+      "title": "Check how you show up in ChatGPT, Perplexity, Gemini",
+      "prompt": "How does my product show up in ChatGPT, Perplexity, and Gemini? Run a GEO audit.",
+      "description": "I probe AI search engines for your brand terms and category terms, then recommend Generative Engine Optimization (GEO) changes — schema, mentions, source authority — to rank in AI answers.",
+      "outcome": "An AI-search audit at ai-search-audits/{YYYY-MM-DD}.md with concrete content + schema changes.",
+      "skill": "audit-ai-search"
+    },
+    {
+      "category": "Strategy",
+      "title": "Build the keyword map you can actually own",
+      "prompt": "Find the keyword clusters we should own for {topic}.",
+      "description": "I cluster keywords by intent and difficulty, flag the 3 pillars worth owning, and draft cluster briefs. No vanity keyword lists.",
+      "outcome": "A living keyword-map.md at my root + per-cluster briefs at keyword-clusters/{slug}.md.",
+      "skill": "research-keywords"
+    },
+    {
+      "category": "Strategy",
+      "title": "Find your content gap vs a competitor",
+      "prompt": "Where's our content gap vs {competitor}? Rank the gaps we should close first.",
+      "description": "I crawl their content, compare against ours, and rank gaps by search volume × how easily we could take the topic.",
+      "outcome": "Ranked gap list at content-gap-analyses/{competitor}-{YYYY-MM-DD}.md with a first-draft brief per gap.",
+      "skill": "analyze-content-gap"
+    },
+    {
+      "category": "Content",
+      "title": "Draft a full SEO-targeted blog post",
+      "prompt": "Draft a blog post on {topic} targeting {keyword}.",
+      "description": "2,000–3,000 words with proper H1/H2/H3, meta description, URL slug, internal-link suggestions, and one clear CTA. Reads like you wrote it.",
+      "outcome": "A draft at blog-posts/{slug}.md ready to paste into your CMS.",
+      "skill": "write-blog-post"
+    },
+    {
+      "category": "Content",
+      "title": "Turn a happy customer into a case study",
+      "prompt": "Draft a customer case study for {customer}.",
+      "description": "I pull the interview, email thread, or testimonial (from Composio or paste) and structure as challenge → approach → results — with real numbers, not marketer-speak.",
+      "outcome": "A case study at case-studies/{customer-slug}.md you can ship to sales and your website.",
+      "skill": "write-case-study"
+    },
+    {
+      "category": "Repurposing",
+      "title": "Turn one blog post into 5 LinkedIn posts",
+      "prompt": "Turn {blog post URL} into 5 LinkedIn posts.",
+      "description": "I extract the core ideas and reshape each into a LinkedIn-native post (hook, whitespace, one clear takeaway) your Social agent can pick up and ship.",
+      "outcome": "5 post drafts at repurposed/{source-slug}-to-linkedin.md — hand them to Social & Community.",
+      "skill": "repurpose-content"
+    },
+    {
+      "category": "Repurposing",
+      "title": "Turn a YouTube video into a blog draft",
+      "prompt": "Turn {YouTube URL} into a blog post draft.",
+      "description": "I fetch the transcript and rewrite it into a long-form blog draft with SEO structure (H1/H2, keywords, meta). Great for conference talks, founder interviews, or weekly live sessions.",
+      "outcome": "A draft at repurposed/{video-slug}-to-blog.md.",
+      "skill": "repurpose-content"
+    },
+    {
+      "category": "Backlinks",
+      "title": "Find backlink targets and draft the pitches",
+      "prompt": "Who should we pitch for backlinks, and what's the pitch to each one?",
+      "description": "I identify target sites (via SERP + Composio backlink tools) that match your niche, then draft per-target pitch emails grounded in what you actually offer them.",
+      "outcome": "A backlink plan at backlink-plans/{YYYY-MM-DD}.md with outreach email drafts per target.",
+      "skill": "find-backlinks"
+    }
+  ]
 }
