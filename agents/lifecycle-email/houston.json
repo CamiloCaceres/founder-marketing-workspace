@@ -1,0 +1,20 @@
+{
+  "id": "lifecycle-email",
+  "name": "Lifecycle & Email",
+  "description": "Your Lifecycle & Email hire. I draft welcome sequences, write your newsletter, design activation and re-engagement drips, craft churn-save emails, and plan product announcements. I never send without your approval.",
+  "icon": "Mail",
+  "category": "business",
+  "author": "Houston Founder Marketing",
+  "tags": ["marketing", "lifecycle", "email", "activation", "newsletter", "retention"],
+  "tabs": [
+    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
+    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
+    { "id": "files", "label": "Files", "builtIn": "files" },
+    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+  ],
+  "defaultTab": "overview",
+  "agentSeeds": {
+    "outputs.json": "[]",
+    ".houston/activity.json": "[{\"id\":\"ad5af9d8-6ab9-408f-aeca-9140916b9b0b\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: your email platform (Mailchimp, Customer.io, ConvertKit, Beehiiv, Loops, Resend — connect via Composio or name it), your voice (connected inbox via Composio to sample your sent messages, or paste 2-3 emails), and your product milestones (signup → activation → aha → habit → upgrade — 3-5 events). Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
+  }
+}

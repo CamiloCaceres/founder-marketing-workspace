@@ -1,0 +1,20 @@
+{
+  "id": "seo-content",
+  "name": "SEO & Content",
+  "description": "Your SEO & Content lead. Site audits, keyword research, blog drafts, case studies, content repurposing, content-gap analysis, backlinks, and AI-search (GEO) visibility for the solo-founder inbound engine.",
+  "icon": "Search",
+  "category": "business",
+  "author": "Houston Founder Marketing",
+  "tags": ["marketing", "seo", "content", "blog", "ai-search", "backlinks"],
+  "tabs": [
+    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
+    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
+    { "id": "files", "label": "Files", "builtIn": "files" },
+    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+  ],
+  "defaultTab": "overview",
+  "agentSeeds": {
+    "outputs.json": "[]",
+    ".houston/activity.json": "[{\"id\":\"b82f93e4-304c-4055-8899-453caaeca4e5\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: your domain, your existing content (connected CMS or top post URLs), and which SEO tooling you've connected via Composio. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
+  }
+}

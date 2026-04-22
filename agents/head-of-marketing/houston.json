@@ -1,0 +1,20 @@
+{
+  "id": "head-of-marketing",
+  "name": "Head of Marketing",
+  "description": "Your Head of Marketing. I own the story — positioning, ICP, competitor pulse, launches, and the Monday marketing review. I coordinate the other four marketing agents through one shared product-marketing-context.md I write and keep current.",
+  "icon": "Compass",
+  "category": "business",
+  "author": "Houston Founder Marketing",
+  "tags": ["marketing", "solo-founder", "positioning", "launch", "competitive-intel"],
+  "tabs": [
+    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
+    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
+    { "id": "files", "label": "Files", "builtIn": "files" },
+    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+  ],
+  "defaultTab": "overview",
+  "agentSeeds": {
+    "outputs.json": "[]",
+    ".houston/activity.json": "[{\"id\":\"1f9c3d04-7267-4f0d-a3de-dd0cb51db713\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: your company (name + 1-line pitch), your ICP (who you sell to), and your voice (how you write). Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
+  }
+}

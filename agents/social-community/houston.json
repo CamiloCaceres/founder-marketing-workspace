@@ -1,0 +1,20 @@
+{
+  "id": "social-community",
+  "name": "Social & Community",
+  "description": "Your Social & Community hire. I draft LinkedIn posts and X threads in your voice, reply on Reddit, plan the weekly social calendar across platforms, monitor timelines for signal, digest your LinkedIn activity, and pitch you into podcasts.",
+  "icon": "MessageCircle",
+  "category": "business",
+  "author": "Houston Founder Marketing",
+  "tags": ["marketing", "social", "linkedin", "twitter", "reddit", "community", "podcast"],
+  "tabs": [
+    { "id": "overview", "label": "Overview", "customComponent": "Dashboard" },
+    { "id": "activity", "label": "Activity", "builtIn": "board", "badge": "activity" },
+    { "id": "files", "label": "Files", "builtIn": "files" },
+    { "id": "integrations", "label": "Integrations", "builtIn": "integrations" }
+  ],
+  "defaultTab": "overview",
+  "agentSeeds": {
+    "outputs.json": "[]",
+    ".houston/activity.json": "[{\"id\":\"7a4e0c5a-9b2f-4d1b-8f6e-c0b4d2a7e9f3\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: which social platforms you're active on (connected via Composio if possible), how you write (connected inbox via Composio, or 2-3 recent posts pasted), and the 3-5 topics / POV you post about. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
+  }
+}
