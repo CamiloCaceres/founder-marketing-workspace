@@ -3,10 +3,18 @@
 // Access React via window.Houston.React. Export via window.__houston_bundle__.
 //
 // This dashboard is the founder's first-action menu for the agent: a
-// slim sticky header, one featured "Start here" mission, then a dense
-// list of remaining missions grouped by category. Each row copies a
-// hidden `fullPrompt` (richer than the visible title) to clipboard —
-// the Overview surface stays clean while the agent gets enough context.
+// slim sticky header, one featured "Start here" mission inside a
+// tinted panel, then a dense categorized list of remaining missions.
+// Each row copies a hidden `fullPrompt` (richer than the visible
+// title) to clipboard — the Overview surface stays clean while the
+// agent gets enough context.
+//
+// Styling note: accent colors are applied via an injected <style>
+// block using CSS custom properties (one palette per accent). This
+// bypasses Houston's Tailwind content scan, which only picks up
+// classes that appear literally in other scanned files. Relying on
+// `bg-{accent}-600` etc. would render as no-op because those classes
+// aren't present in Houston's bundled CSS.
 //
 // Reactivity intent: useHoustonEvent("houston-event", ...) is the target
 // pattern. Injected-script bundles cannot currently receive that event
@@ -24,61 +32,58 @@
   var AGENT = {{AGENT_CONFIG}};
   // ══════════════════════════════════════════════════════════
 
-  // ── Accent palette ───────────────────────────────────────────
-  // Static class lookups so Tailwind's JIT keeps them bundled. Each
-  // hue is used sparingly: category label, featured CTA, row hover
-  // affordances. No gradient surfaces.
-  var ACCENTS = {
-    indigo: {
-      dot: "bg-indigo-500",
-      categoryLabel: "text-indigo-700",
-      featuredRule: "bg-indigo-500",
-      ctaBg: "bg-indigo-600 hover:bg-indigo-700",
-      ctaText: "text-white",
-      rowCopyHover: "group-hover/row:text-indigo-700",
-      rowBorderHover: "group-hover/row:border-indigo-200",
-    },
-    emerald: {
-      dot: "bg-emerald-500",
-      categoryLabel: "text-emerald-700",
-      featuredRule: "bg-emerald-500",
-      ctaBg: "bg-emerald-600 hover:bg-emerald-700",
-      ctaText: "text-white",
-      rowCopyHover: "group-hover/row:text-emerald-700",
-      rowBorderHover: "group-hover/row:border-emerald-200",
-    },
-    amber: {
-      dot: "bg-amber-500",
-      categoryLabel: "text-amber-700",
-      featuredRule: "bg-amber-500",
-      ctaBg: "bg-amber-600 hover:bg-amber-700",
-      ctaText: "text-white",
-      rowCopyHover: "group-hover/row:text-amber-700",
-      rowBorderHover: "group-hover/row:border-amber-200",
-    },
-    sky: {
-      dot: "bg-sky-500",
-      categoryLabel: "text-sky-700",
-      featuredRule: "bg-sky-500",
-      ctaBg: "bg-sky-600 hover:bg-sky-700",
-      ctaText: "text-white",
-      rowCopyHover: "group-hover/row:text-sky-700",
-      rowBorderHover: "group-hover/row:border-sky-200",
-    },
-    rose: {
-      dot: "bg-rose-500",
-      categoryLabel: "text-rose-700",
-      featuredRule: "bg-rose-500",
-      ctaBg: "bg-rose-600 hover:bg-rose-700",
-      ctaText: "text-white",
-      rowCopyHover: "group-hover/row:text-rose-700",
-      rowBorderHover: "group-hover/row:border-rose-200",
-    },
+  // ── Accent palettes (hex values from Tailwind's default palette) ──
+  // We apply these via CSS variables below so they work without any
+  // Tailwind classes being present in Houston's CSS bundle.
+  var PALETTES = {
+    indigo: { c50: "#eef2ff", c100: "#e0e7ff", c500: "#6366f1", c600: "#4f46e5", c700: "#4338ca" },
+    emerald: { c50: "#ecfdf5", c100: "#d1fae5", c500: "#10b981", c600: "#059669", c700: "#047857" },
+    amber: { c50: "#fffbeb", c100: "#fef3c7", c500: "#f59e0b", c600: "#d97706", c700: "#b45309" },
+    sky: { c50: "#f0f9ff", c100: "#e0f2fe", c500: "#0ea5e9", c600: "#0284c7", c700: "#0369a1" },
+    rose: { c50: "#fff1f2", c100: "#ffe4e6", c500: "#f43f5e", c600: "#e11d48", c700: "#be123c" },
   };
-  var THEME = ACCENTS[AGENT.accent] || ACCENTS.indigo;
+  var PALETTE = PALETTES[AGENT.accent] || PALETTES.indigo;
 
-  // ── Inline icon library (heroicons-outline paths) ────────────
-  // Minimal set: copy, check, arrow. Stroke-only, currentColor.
+  // Scoped style block. Everything is prefixed with `.hv-dash` so we
+  // don't leak into the host app's styles.
+  var STYLE_CSS =
+    ".hv-dash{" +
+    "--hv-50:" + PALETTE.c50 + ";" +
+    "--hv-100:" + PALETTE.c100 + ";" +
+    "--hv-500:" + PALETTE.c500 + ";" +
+    "--hv-600:" + PALETTE.c600 + ";" +
+    "--hv-700:" + PALETTE.c700 + ";" +
+    "}" +
+    // Sticky header
+    ".hv-dash .hv-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e2e8f0;}" +
+    // Featured panel
+    ".hv-dash .hv-featured{position:relative;background:linear-gradient(180deg,var(--hv-50) 0%,rgba(255,255,255,0) 85%);border-left:3px solid var(--hv-500);border-bottom:1px solid #e2e8f0;}" +
+    ".hv-dash .hv-eyebrow{color:var(--hv-700);}" +
+    ".hv-dash .hv-eyebrow-dot{background:var(--hv-500);}" +
+    ".hv-dash .hv-featured-title{font-family:ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;font-weight:600;letter-spacing:-0.01em;}" +
+    // CTA button
+    ".hv-dash .hv-cta{background:var(--hv-600);color:#fff;border:none;cursor:pointer;transition:background 160ms ease-out,transform 160ms ease-out;}" +
+    ".hv-dash .hv-cta:hover{background:var(--hv-700);}" +
+    ".hv-dash .hv-cta:active{transform:translateY(1px);}" +
+    ".hv-dash .hv-cta-copied{background:#0f172a;}" +
+    // Category label + rule
+    ".hv-dash .hv-cat-label{color:var(--hv-700);}" +
+    ".hv-dash .hv-cat-rule{background:var(--hv-500);}" +
+    // Rows
+    ".hv-dash .hv-row{cursor:pointer;transition:background 120ms ease-out;border-top:1px solid #f1f5f9;}" +
+    ".hv-dash .hv-row:first-child{border-top:1px solid #e2e8f0;}" +
+    ".hv-dash .hv-row:last-child{border-bottom:1px solid #e2e8f0;}" +
+    ".hv-dash .hv-row:hover{background:color-mix(in srgb,var(--hv-500) 5%,transparent);}" +
+    ".hv-dash .hv-row:hover .hv-row-title{color:var(--hv-700);}" +
+    ".hv-dash .hv-row-title{transition:color 120ms ease-out;}" +
+    // Copy pill on each row
+    ".hv-dash .hv-copy-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:11.5px;font-weight:500;transition:all 140ms ease-out;}" +
+    ".hv-dash .hv-row:hover .hv-copy-pill{border-color:var(--hv-500);color:var(--hv-700);}" +
+    ".hv-dash .hv-copy-pill-copied{background:var(--hv-600);color:#fff;border-color:var(--hv-600);}" +
+    ".hv-dash .hv-row:hover .hv-copy-pill-copied{background:var(--hv-600);color:#fff;border-color:var(--hv-600);}" +
+    "";
+
+  // ── Inline icons (heroicons-outline paths) ──────────────────
   var ICON_PATHS = {
     copy:
       "M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75",
@@ -86,7 +91,7 @@
     arrowRight: "M4.5 12h15m0 0-6.75-6.75M19.5 12l-6.75 6.75",
   };
 
-  function Icon(name, cls) {
+  function Icon(name, size) {
     var d = ICON_PATHS[name] || ICON_PATHS.arrowRight;
     return h(
       "svg",
@@ -94,19 +99,18 @@
         xmlns: "http://www.w3.org/2000/svg",
         fill: "none",
         viewBox: "0 0 24 24",
-        strokeWidth: 1.75,
+        strokeWidth: 1.8,
         stroke: "currentColor",
-        className: cls || "size-4",
+        width: size || 14,
+        height: size || 14,
         "aria-hidden": "true",
+        style: { display: "inline-block", flexShrink: 0 },
       },
       h("path", { strokeLinecap: "round", strokeLinejoin: "round", d: d }),
     );
   }
 
   // ── Clipboard hook ───────────────────────────────────────────
-  // Tracks which use-case index most recently copied; the UI uses this
-  // to flash a transient "Copied" state. Falls back to a hidden
-  // textarea + execCommand when the async API is unavailable.
   function useClipboard() {
     var s = useState({ idx: null, at: 0 });
     var state = s[0];
@@ -142,42 +146,52 @@
     return { copiedIdx: state.idx, copy: copy };
   }
 
-  // Return the copy payload for a use case — prefers the rich hidden
-  // `fullPrompt`, falls back to the short public `prompt`.
   function payloadFor(uc) {
     return (uc && (uc.fullPrompt || uc.prompt)) || "";
   }
 
-  // ── Sticky header ────────────────────────────────────────────
+  // ── Header ──────────────────────────────────────────────────
   function Header() {
     return h(
       "div",
-      {
-        className:
-          "sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-slate-100",
-      },
+      { className: "hv-header" },
       h(
         "div",
         {
-          className:
-            "max-w-3xl mx-auto px-8 py-5 flex items-start gap-6",
+          style: {
+            padding: "18px 40px",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 24,
+          },
         },
         h(
           "div",
-          { className: "flex-1 min-w-0" },
+          { style: { flex: 1, minWidth: 0 } },
           h(
             "div",
-            { className: "flex items-center gap-2" },
+            { style: { display: "flex", alignItems: "center", gap: 10 } },
             h("span", {
-              className:
-                "inline-block size-[7px] rounded-full " + THEME.dot,
+              className: "hv-eyebrow-dot",
+              style: {
+                width: 8,
+                height: 8,
+                borderRadius: 999,
+                display: "inline-block",
+              },
               "aria-hidden": "true",
             }),
             h(
               "h1",
               {
-                className:
-                  "text-[17px] font-semibold tracking-tight text-slate-900 truncate",
+                style: {
+                  fontSize: 17,
+                  fontWeight: 600,
+                  letterSpacing: "-0.01em",
+                  color: "#0f172a",
+                  margin: 0,
+                  lineHeight: 1.2,
+                },
               },
               AGENT.name,
             ),
@@ -185,8 +199,13 @@
           h(
             "p",
             {
-              className:
-                "mt-1 text-[12.5px] text-slate-500 leading-snug max-w-xl",
+              style: {
+                marginTop: 6,
+                fontSize: 12.5,
+                color: "#64748b",
+                lineHeight: 1.5,
+                maxWidth: 640,
+              },
             },
             AGENT.tagline,
           ),
@@ -194,8 +213,14 @@
         h(
           "span",
           {
-            className:
-              "hidden md:inline-block shrink-0 mt-1 text-[11px] text-slate-400 tracking-wide whitespace-nowrap",
+            style: {
+              flexShrink: 0,
+              marginTop: 2,
+              fontSize: 11,
+              color: "#94a3b8",
+              letterSpacing: "0.02em",
+              whiteSpace: "nowrap",
+            },
           },
           "Click any mission to copy a ready prompt",
         ),
@@ -203,7 +228,7 @@
     );
   }
 
-  // ── Featured mission (first use case) ────────────────────────
+  // ── Featured mission ────────────────────────────────────────
   function Featured(props) {
     var uc = props.useCase;
     var idx = props.idx;
@@ -213,22 +238,30 @@
     return h(
       "section",
       {
-        className: "max-w-3xl mx-auto px-8 pt-12 pb-10",
+        className: "hv-featured",
+        style: { padding: "44px 40px 48px 40px" },
       },
+      // Eyebrow
       h(
         "div",
-        { className: "flex items-center gap-2.5 mb-4" },
-        h("span", {
-          className:
-            "inline-block h-px w-8 " + THEME.featuredRule,
-          "aria-hidden": "true",
-        }),
+        {
+          style: {
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            marginBottom: 14,
+          },
+        },
         h(
           "span",
           {
-            className:
-              "text-[10.5px] uppercase tracking-[0.14em] font-semibold " +
-              THEME.categoryLabel,
+            className: "hv-eyebrow",
+            style: {
+              fontSize: 10.5,
+              letterSpacing: "0.16em",
+              fontWeight: 700,
+              textTransform: "uppercase",
+            },
           },
           "Start here",
         ),
@@ -236,34 +269,61 @@
           ? h(
               "span",
               {
-                className:
-                  "text-[10.5px] uppercase tracking-[0.14em] font-medium text-slate-400",
+                style: {
+                  fontSize: 10.5,
+                  letterSpacing: "0.16em",
+                  fontWeight: 500,
+                  textTransform: "uppercase",
+                  color: "#94a3b8",
+                },
               },
               "· " + uc.category,
             )
           : null,
       ),
+      // Title
       h(
         "h2",
         {
-          className:
-            "text-[26px] leading-[1.2] font-semibold tracking-tight text-slate-900",
+          className: "hv-featured-title",
+          style: {
+            fontSize: 30,
+            lineHeight: 1.15,
+            color: "#0f172a",
+            margin: 0,
+            maxWidth: 720,
+          },
         },
         uc.title || "",
       ),
+      // Outcome
       uc.outcome
         ? h(
             "p",
             {
-              className:
-                "mt-3 text-[14.5px] leading-relaxed text-slate-600 max-w-2xl",
+              style: {
+                marginTop: 14,
+                fontSize: 14.5,
+                lineHeight: 1.6,
+                color: "#475569",
+                maxWidth: 640,
+              },
             },
             uc.outcome,
           )
         : null,
+      // CTA
       h(
         "div",
-        { className: "mt-6 flex items-center flex-wrap gap-x-4 gap-y-2" },
+        {
+          style: {
+            marginTop: 28,
+            display: "flex",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "16px 20px",
+          },
+        },
         h(
           "button",
           {
@@ -271,28 +331,35 @@
             onClick: function () {
               onCopy(payloadFor(uc), idx);
             },
-            className:
-              "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13.5px] font-medium transition-colors duration-200 " +
-              (isCopied
-                ? "bg-slate-900 text-white"
-                : THEME.ctaBg + " " + THEME.ctaText),
+            className: "hv-cta" + (isCopied ? " hv-cta-copied" : ""),
+            style: {
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "11px 20px",
+              borderRadius: 999,
+              fontSize: 13.5,
+              fontWeight: 600,
+              letterSpacing: "-0.005em",
+            },
           },
-          Icon(isCopied ? "check" : "copy", "size-4"),
+          Icon(isCopied ? "check" : "copy", 15),
           h(
             "span",
             null,
-            isCopied
-              ? "Copied — paste into a new mission"
-              : "Copy this prompt",
+            isCopied ? "Copied — paste into a new mission" : "Copy this prompt",
           ),
-          isCopied ? null : Icon("arrowRight", "size-3.5"),
+          isCopied ? null : Icon("arrowRight", 13),
         ),
         uc.tool
           ? h(
               "span",
               {
-                className:
-                  "text-[11.5px] text-slate-500 tracking-wide",
+                style: {
+                  fontSize: 11.5,
+                  color: "#64748b",
+                  letterSpacing: "0.02em",
+                },
               },
               "Uses " + uc.tool,
             )
@@ -301,7 +368,7 @@
     );
   }
 
-  // ── Mission row (one per remaining use case) ─────────────────
+  // ── Mission row ─────────────────────────────────────────────
   function Row(props) {
     var uc = props.useCase;
     var idx = props.idx;
@@ -309,103 +376,136 @@
     var onCopy = props.onCopy;
 
     return h(
-      "li",
+      "div",
       {
-        className:
-          "group/row relative border-t border-slate-100 transition-colors duration-150 hover:bg-slate-50/60",
+        className: "hv-row",
+        role: "button",
+        tabIndex: 0,
+        onClick: function () {
+          onCopy(payloadFor(uc), idx);
+        },
+        onKeyDown: function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onCopy(payloadFor(uc), idx);
+          }
+        },
+        style: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 24,
+          padding: "16px 12px 16px 16px",
+        },
       },
       h(
-        "button",
-        {
-          type: "button",
-          onClick: function () {
-            onCopy(payloadFor(uc), idx);
-          },
-          className:
-            "w-full text-left flex items-center justify-between gap-6 py-4 pl-2 pr-3",
-        },
+        "div",
+        { style: { flex: 1, minWidth: 0 } },
         h(
-          "div",
-          { className: "flex-1 min-w-0" },
-          h(
-            "h3",
-            {
-              className:
-                "text-[15px] font-medium leading-snug text-slate-900 truncate",
+          "h3",
+          {
+            className: "hv-row-title",
+            style: {
+              fontSize: 15,
+              fontWeight: 600,
+              color: "#0f172a",
+              margin: 0,
+              lineHeight: 1.35,
+              letterSpacing: "-0.005em",
             },
-            uc.title || "",
-          ),
-          // outcome — hidden by default, revealed on hover via grid-rows.
-          // This animates height without touching `height` directly.
-          uc.outcome
-            ? h(
-                "div",
-                {
-                  className:
-                    "grid grid-rows-[0fr] group-hover/row:grid-rows-[1fr] transition-[grid-template-rows] duration-200 ease-out",
-                },
-                h(
-                  "div",
-                  { className: "overflow-hidden" },
-                  h(
-                    "p",
-                    {
-                      className:
-                        "mt-1 text-[12.5px] text-slate-500 leading-relaxed truncate",
-                    },
-                    uc.outcome,
-                  ),
-                ),
-              )
-            : null,
+          },
+          uc.title || "",
         ),
+        uc.outcome
+          ? h(
+              "p",
+              {
+                style: {
+                  marginTop: 4,
+                  fontSize: 12.5,
+                  color: "#64748b",
+                  lineHeight: 1.5,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                },
+              },
+              uc.outcome,
+            )
+          : null,
+      ),
+      h(
+        "span",
+        {
+          className:
+            "hv-copy-pill" + (isCopied ? " hv-copy-pill-copied" : ""),
+        },
+        Icon(isCopied ? "check" : "copy", 13),
         h(
           "span",
-          {
-            className:
-              "shrink-0 inline-flex items-center gap-1.5 text-[12px] font-medium text-slate-400 transition-colors duration-150 " +
-              (isCopied ? "" : THEME.rowCopyHover),
-          },
-          Icon(isCopied ? "check" : "copy", "size-3.5"),
-          h(
-            "span",
-            { className: isCopied ? "" : "hidden sm:inline" },
-            isCopied ? "Copied" : "Copy",
-          ),
+          null,
+          isCopied ? "Copied" : "Copy",
         ),
       ),
     );
   }
 
-  // ── Category section ─────────────────────────────────────────
+  // ── Category section ────────────────────────────────────────
   function CategorySection(props) {
     return h(
       "section",
-      { className: "mb-10 last:mb-0" },
+      { style: { marginBottom: 36 } },
       h(
         "div",
-        { className: "flex items-baseline gap-2 mb-1 pl-2" },
+        {
+          style: {
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            marginBottom: 10,
+            paddingLeft: 16,
+          },
+        },
+        h("span", {
+          className: "hv-cat-rule",
+          style: {
+            display: "inline-block",
+            width: 14,
+            height: 2,
+            borderRadius: 1,
+          },
+          "aria-hidden": "true",
+        }),
         h(
           "h2",
           {
-            className:
-              "text-[10.5px] uppercase tracking-[0.14em] font-semibold " +
-              THEME.categoryLabel,
+            className: "hv-cat-label",
+            style: {
+              fontSize: 10.5,
+              letterSpacing: "0.16em",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              margin: 0,
+            },
           },
           props.category,
         ),
         h(
           "span",
           {
-            className:
-              "text-[11px] text-slate-300 tabular-nums font-medium",
+            style: {
+              fontSize: 11,
+              color: "#cbd5e1",
+              fontVariantNumeric: "tabular-nums",
+              fontWeight: 600,
+            },
           },
           props.items.length,
         ),
       ),
       h(
-        "ul",
-        { className: "border-b border-slate-100" },
+        "div",
+        null,
         props.items.map(function (item) {
           return h(Row, {
             key: item.idx,
@@ -419,95 +519,119 @@
     );
   }
 
-  // ── Empty state ──────────────────────────────────────────────
+  // ── Empty state ─────────────────────────────────────────────
   function Empty() {
     return h(
       "div",
-      { className: "max-w-3xl mx-auto px-8 py-20" },
+      { style: { padding: "48px 40px" } },
       h(
         "p",
-        { className: "text-[14px] font-medium text-slate-700" },
+        { style: { fontSize: 14, fontWeight: 600, color: "#334155", margin: 0 } },
         "No missions declared yet.",
       ),
       h(
         "p",
-        { className: "mt-1 text-[13px] text-slate-500" },
+        {
+          style: {
+            marginTop: 6,
+            fontSize: 13,
+            color: "#64748b",
+          },
+        },
         "This agent will grow its menu over time.",
       ),
     );
   }
 
-  // ── Dashboard (root) ─────────────────────────────────────────
+  // ── Dashboard (root) ────────────────────────────────────────
   function Dashboard() {
     var clipboard = useClipboard();
     var useCases = AGENT.useCases || [];
 
+    var content;
     if (useCases.length === 0) {
-      return h(
-        "div",
-        { className: "h-full overflow-y-auto bg-white" },
-        h(Header),
-        h(Empty),
+      content = h(Empty);
+    } else {
+      var featured = { useCase: useCases[0], idx: 0 };
+      var rest = useCases.slice(1);
+
+      var groups = (function () {
+        if (rest.length === 0) return [];
+        var order = [];
+        var map = {};
+        rest.forEach(function (uc, i) {
+          var cat = uc.category || "Other";
+          if (!map[cat]) {
+            map[cat] = [];
+            order.push(cat);
+          }
+          map[cat].push({ useCase: uc, idx: i + 1 });
+        });
+        return order.map(function (cat) {
+          return { category: cat, items: map[cat] };
+        });
+      })();
+
+      content = h(
+        React.Fragment || "div",
+        null,
+        h(Featured, {
+          useCase: featured.useCase,
+          idx: featured.idx,
+          copiedIdx: clipboard.copiedIdx,
+          onCopy: clipboard.copy,
+        }),
+        groups.length > 0
+          ? h(
+              "div",
+              { style: { padding: "36px 40px 48px 40px" } },
+              h(
+                "div",
+                {
+                  style: {
+                    marginBottom: 20,
+                    fontSize: 11,
+                    letterSpacing: "0.16em",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    color: "#94a3b8",
+                  },
+                },
+                "Or browse · " +
+                  rest.length +
+                  " more mission" +
+                  (rest.length === 1 ? "" : "s"),
+              ),
+              groups.map(function (g) {
+                return h(CategorySection, {
+                  key: g.category,
+                  category: g.category,
+                  items: g.items,
+                  copiedIdx: clipboard.copiedIdx,
+                  onCopy: clipboard.copy,
+                });
+              }),
+            )
+          : null,
       );
     }
 
-    var featured = { useCase: useCases[0], idx: 0 };
-    var rest = useCases.slice(1);
-
-    // Group the rest by category, preserving first-appearance order.
-    var groups = (function () {
-      if (rest.length === 0) return [];
-      var order = [];
-      var map = {};
-      rest.forEach(function (uc, i) {
-        var cat = uc.category || "Other";
-        if (!map[cat]) {
-          map[cat] = [];
-          order.push(cat);
-        }
-        map[cat].push({ useCase: uc, idx: i + 1 });
-      });
-      return order.map(function (cat) {
-        return { category: cat, items: map[cat] };
-      });
-    })();
-
     return h(
       "div",
-      { className: "h-full overflow-y-auto bg-white" },
+      {
+        className: "hv-dash",
+        style: {
+          height: "100%",
+          overflowY: "auto",
+          background: "#ffffff",
+          color: "#0f172a",
+          fontFamily:
+            "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif",
+        },
+      },
+      h("style", { dangerouslySetInnerHTML: { __html: STYLE_CSS } }),
       h(Header),
-      h(Featured, {
-        useCase: featured.useCase,
-        idx: featured.idx,
-        copiedIdx: clipboard.copiedIdx,
-        onCopy: clipboard.copy,
-      }),
-      groups.length > 0
-        ? h(
-            "div",
-            { className: "max-w-3xl mx-auto px-8 pb-16" },
-            h(
-              "div",
-              {
-                className:
-                  "mb-6 text-[11px] uppercase tracking-[0.14em] font-medium text-slate-400",
-              },
-              "Or browse · " +
-                rest.length +
-                " more mission" +
-                (rest.length === 1 ? "" : "s"),
-            ),
-            groups.map(function (g) {
-              return h(CategorySection, {
-                key: g.category,
-                category: g.category,
-                items: g.items,
-                copiedIdx: clipboard.copiedIdx,
-                onCopy: clipboard.copy,
-              });
-            }),
-          )
-        : null,
+      content,
     );
   }
 
