@@ -2,19 +2,15 @@
 // Hand-crafted IIFE. No ES modules, no build step, no import statements.
 // Access React via window.Houston.React. Export via window.__houston_bundle__.
 //
-// This dashboard is the founder's first-action menu for the agent: a
-// slim sticky header, one featured "Start here" mission inside a
-// tinted panel, then a dense categorized list of remaining missions.
-// Each row copies a hidden `fullPrompt` (richer than the visible
-// title) to clipboard — the Overview surface stays clean while the
-// agent gets enough context.
+// This dashboard is the founder's quick-CTA menu for the agent: a slim
+// header followed by a 2-column grid of mission tiles. Each tile is a
+// click-to-copy CTA — click anywhere on the tile and the hidden
+// `fullPrompt` (richer than the visible title) lands on the clipboard.
 //
-// Styling note: accent colors are applied via an injected <style>
-// block using CSS custom properties (one palette per accent). This
-// bypasses Houston's Tailwind content scan, which only picks up
-// classes that appear literally in other scanned files. Relying on
-// `bg-{accent}-600` etc. would render as no-op because those classes
-// aren't present in Houston's bundled CSS.
+// Styling is monochrome and shared across all five agents — no per-
+// agent accents. Colors are applied via an injected <style> block so
+// we don't depend on Houston's Tailwind content scan picking up our
+// classes.
 //
 // Reactivity intent: useHoustonEvent("houston-event", ...) is the target
 // pattern. Injected-script bundles cannot currently receive that event
@@ -37,6 +33,7 @@
     {
       "category": "Foundation",
       "title": "Draft the positioning doc that unblocks everyone",
+      "blurb": "90-second interview, then a real source-of-truth doc.",
       "prompt": "Help me write a positioning statement for my product.",
       "fullPrompt": "Help me write (or update) my positioning doc. Use the define-positioning skill. Interview me for the pieces you don't already have in config/ — ICP, category we compete in, top 3 differentiators vs alternatives, brand voice, pricing stance, primary CTA. Synthesize into the full product-marketing-context.md at your agent root. This is the doc the other four agents read before every task, so be specific — no throw-away adjectives. After saving, tell me which sections still need evidence and what you'd ask next.",
       "description": "I'll walk you through a short interview and draft the full positioning doc — ICP, category, differentiators, brand voice, pricing stance, primary CTA. This doc is the source of truth the other four marketing agents read before they do anything.",
@@ -46,6 +43,7 @@
     {
       "category": "Foundation",
       "title": "Build a buyer persona from your closed-won accounts",
+      "blurb": "Pains, JTBD, triggers — cited from real accounts.",
       "prompt": "Build a buyer persona for {segment} from my closed-won accounts in HubSpot.",
       "fullPrompt": "Build a real buyer persona for {segment} using my closed-won accounts in my connected CRM (HubSpot or whatever's in config/). Use the profile-icp skill. Pull the top ~20 closed-won accounts, extract firmographics (size, industry, region) and buyer-role titles. Synthesize pains, jobs-to-be-done, buying triggers, anchor accounts to name publicly, and common objections. Every claim cites the accounts it came from — no invented traits. Save to personas/{slug}.md and log in outputs.json.",
       "description": "Pull your top closed-won accounts via connected CRM, extract common firmographics and roles, synthesize pains / JTBD / triggers / anchor accounts.",
@@ -56,6 +54,7 @@
     {
       "category": "Competitive",
       "title": "Weekly competitor pulse across 3 rivals",
+      "blurb": "Moves worth responding to vs the ignore pile.",
       "prompt": "Give me this week's competitor pulse across {Competitor A}, {Competitor B}, {Competitor C} — new posts, product updates, ads.",
       "fullPrompt": "Give me this week's competitor pulse across {Competitor A}, {Competitor B}, {Competitor C}. Use the track-competitors skill. Scan each one's recent blog posts and product updates via Firecrawl, ad activity in Meta Ad Library and LinkedIn Ad Library, and notable social posts. For each move, label it Real Threat / Noise / Ignore with a one-line reason. End with a prioritized 'moves we should respond to' list and what stays on the ignore pile. Save to competitor-briefs/weekly-{YYYY-MM-DD}.md and log in outputs.json.",
       "description": "Scan each competitor's recent blog posts, product updates (via Firecrawl), ad activity in Meta / LinkedIn Ad Library, and social presence. I filter real threats from noise.",
@@ -66,6 +65,7 @@
     {
       "category": "Competitive",
       "title": "Deep teardown of one competitor",
+      "blurb": "Positioning, pricing, content, and flanks to press.",
       "prompt": "Do a full teardown of {competitor} — positioning, pricing, content, and where we can press.",
       "fullPrompt": "Do a full teardown of {competitor}. Use the track-competitors skill. Scrape via Firecrawl: their homepage/positioning statement, pricing page, top 20 blog posts (content themes + gaps), messaging patterns (repeated words/claims), customer logos, and case studies. Then compare to our positioning doc and list 3 unguarded flanks we can press — each with a specific angle and which of our other agents should act on it. Save to competitor-briefs/{competitor}.md and log in outputs.json.",
       "description": "One competitor, all dimensions (via web scrape): positioning statement, pricing page, content strategy, messaging patterns, unguarded flanks to attack.",
@@ -76,6 +76,7 @@
     {
       "category": "Launches",
       "title": "Sequence a 2-week launch across every agent",
+      "blurb": "Tasks, owners, and timing — end-to-end plan.",
       "prompt": "Plan the launch for {feature} over the next 2 weeks.",
       "fullPrompt": "Plan the launch for {feature} over the next 2 weeks. Use the plan-launch skill. Break the timeline into pre-launch (day -7 to -1), launch day, and post-launch (day +1 to +7). Each task gets an owner (me, SEO & Content, Growth & Paid, Lifecycle & Email, or Social & Community), a concrete deliverable, and a target date. Call out the critical path and the one task that blocks launch day if missed. Save to launches/{slug}.md and log in outputs.json. Where the plan depends on another agent, write the exact handoff prompt I can paste into their chat.",
       "description": "Break the launch into pre-launch (7 days out), launch day, post-launch. Each task tagged to the right agent — SEO drafts the post, Growth preps creative, Lifecycle writes the email, Social plans the posts.",
@@ -85,6 +86,7 @@
     {
       "category": "Research",
       "title": "Research a topic and hand SEO a brief",
+      "blurb": "Key findings, cited sources, 3–5 angles worth writing.",
       "prompt": "Research {topic} with Exa and give me a brief I can hand to SEO.",
       "fullPrompt": "Research {topic} via Exa (or my configured search provider) and write a structured brief I can forward to SEO & Content. Use the synthesize-research skill. Cover: what the best existing content on this topic argues, where it's thin, and 3–5 distinct angles we could own — each with the ICP it speaks to, search intent, and the headline I'd run. Cite sources inline. No opinions unsupported by at least 2 sources. Save to research/{slug}.md and log in outputs.json.",
       "description": "Deep research via Exa (or your connected search provider). Structured brief with key findings, sources cited, 3–5 angles worth writing about.",
@@ -95,6 +97,7 @@
     {
       "category": "Research",
       "title": "Mine sales calls for real customer language",
+      "blurb": "Verbatim quotes, ranked pains, positioning wedges.",
       "prompt": "Mine my last 10 sales calls from Gong for positioning signals and objections.",
       "fullPrompt": "Mine my last 10 sales calls from my connected call-recording app (Gong or whatever's in config/). Use the mine-sales-calls skill. Extract: verbatim phrases prospects used to describe the pain (minimum 20 quotes), the top 5 objections ranked by frequency, triggers that brought them to us, and any language that contradicts our current positioning. Each finding cites the call it came from. Save to call-insights/{YYYY-MM-DD}.md and log in outputs.json. Flag the 3 quotes I should drop straight into ad copy or landing-page headlines.",
       "description": "Pull transcripts from your connected call-recording app, extract verbatim customer phrases, rank pains by frequency, surface objection patterns, flag positioning wedges.",
@@ -105,6 +108,7 @@
     {
       "category": "Reviews",
       "title": "The Monday marketing review in 2 minutes",
+      "blurb": "What shipped, what's stuck, next moves per agent.",
       "prompt": "Give me the Monday marketing review across all channels.",
       "fullPrompt": "Run the Monday marketing review across every agent. Use the review-marketing-health skill. Read each other agent's outputs.json (SEO & Content, Growth & Paid, Lifecycle & Email, Social & Community). Summarize what shipped last week, what's in draft, and any agent that's been quiet for 2+ weeks. Cross-reference against the launch calendar in launches/ and the current positioning doc. End with 3 recommended next moves for the week, each addressed to a specific agent with a one-line handoff prompt I can paste. Save to reviews/{YYYY-MM-DD}.md and log in outputs.json.",
       "description": "Aggregate what each of the four other agents produced this week — blog posts shipped, campaigns running, emails drafted, social posts. Flag gaps like \"Lifecycle hasn't shipped a drip in 3 weeks.\"",
@@ -115,55 +119,39 @@
 };
   // ══════════════════════════════════════════════════════════
 
-  // ── Accent palettes (hex values from Tailwind's default palette) ──
-  // We apply these via CSS variables below so they work without any
-  // Tailwind classes being present in Houston's CSS bundle.
-  var PALETTES = {
-    indigo: { c50: "#eef2ff", c100: "#e0e7ff", c500: "#6366f1", c600: "#4f46e5", c700: "#4338ca" },
-    emerald: { c50: "#ecfdf5", c100: "#d1fae5", c500: "#10b981", c600: "#059669", c700: "#047857" },
-    amber: { c50: "#fffbeb", c100: "#fef3c7", c500: "#f59e0b", c600: "#d97706", c700: "#b45309" },
-    sky: { c50: "#f0f9ff", c100: "#e0f2fe", c500: "#0ea5e9", c600: "#0284c7", c700: "#0369a1" },
-    rose: { c50: "#fff1f2", c100: "#ffe4e6", c500: "#f43f5e", c600: "#e11d48", c700: "#be123c" },
-  };
-  var PALETTE = PALETTES[AGENT.accent] || PALETTES.indigo;
-
-  // Scoped style block. Everything is prefixed with `.hv-dash` so we
-  // don't leak into the host app's styles.
+  // ── Shared monochrome stylesheet ─────────────────────────────
+  // All five agents render identically. The only per-agent content is
+  // name, tagline, and useCases.
   var STYLE_CSS =
-    ".hv-dash{" +
-    "--hv-50:" + PALETTE.c50 + ";" +
-    "--hv-100:" + PALETTE.c100 + ";" +
-    "--hv-500:" + PALETTE.c500 + ";" +
-    "--hv-600:" + PALETTE.c600 + ";" +
-    "--hv-700:" + PALETTE.c700 + ";" +
-    "}" +
+    ".hv-dash{background:#ffffff;color:#0f172a;}" +
     // Sticky header
     ".hv-dash .hv-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e2e8f0;}" +
-    // Featured panel
-    ".hv-dash .hv-featured{position:relative;background:linear-gradient(180deg,var(--hv-50) 0%,rgba(255,255,255,0) 85%);border-left:3px solid var(--hv-500);border-bottom:1px solid #e2e8f0;}" +
-    ".hv-dash .hv-eyebrow{color:var(--hv-700);}" +
-    ".hv-dash .hv-eyebrow-dot{background:var(--hv-500);}" +
-    ".hv-dash .hv-featured-title{font-family:ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;font-weight:600;letter-spacing:-0.01em;}" +
-    // CTA button
-    ".hv-dash .hv-cta{background:var(--hv-600);color:#fff;border:none;cursor:pointer;transition:background 160ms ease-out,transform 160ms ease-out;}" +
-    ".hv-dash .hv-cta:hover{background:var(--hv-700);}" +
-    ".hv-dash .hv-cta:active{transform:translateY(1px);}" +
-    ".hv-dash .hv-cta-copied{background:#0f172a;}" +
-    // Category label + rule
-    ".hv-dash .hv-cat-label{color:var(--hv-700);}" +
-    ".hv-dash .hv-cat-rule{background:var(--hv-500);}" +
-    // Rows
-    ".hv-dash .hv-row{cursor:pointer;transition:background 120ms ease-out;border-top:1px solid #f1f5f9;}" +
-    ".hv-dash .hv-row:first-child{border-top:1px solid #e2e8f0;}" +
-    ".hv-dash .hv-row:last-child{border-bottom:1px solid #e2e8f0;}" +
-    ".hv-dash .hv-row:hover{background:color-mix(in srgb,var(--hv-500) 5%,transparent);}" +
-    ".hv-dash .hv-row:hover .hv-row-title{color:var(--hv-700);}" +
-    ".hv-dash .hv-row-title{transition:color 120ms ease-out;}" +
-    // Copy pill on each row
-    ".hv-dash .hv-copy-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:11.5px;font-weight:500;transition:all 140ms ease-out;}" +
-    ".hv-dash .hv-row:hover .hv-copy-pill{border-color:var(--hv-500);color:var(--hv-700);}" +
-    ".hv-dash .hv-copy-pill-copied{background:var(--hv-600);color:#fff;border-color:var(--hv-600);}" +
-    ".hv-dash .hv-row:hover .hv-copy-pill-copied{background:var(--hv-600);color:#fff;border-color:var(--hv-600);}" +
+    // Grid of mission tiles
+    ".hv-dash .hv-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}" +
+    "@media (max-width: 720px){.hv-dash .hv-grid{grid-template-columns:1fr;}}" +
+    // Tile base
+    ".hv-dash .hv-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-start;gap:10px;min-height:148px;padding:22px 26px 22px 22px;border:1px solid #e2e8f0;border-radius:14px;background:#ffffff;cursor:pointer;transition:border-color 160ms ease-out,box-shadow 160ms ease-out,transform 160ms ease-out,background 160ms ease-out;text-align:left;font:inherit;color:inherit;}" +
+    ".hv-dash .hv-tile:hover{border-color:#0f172a;box-shadow:0 6px 20px -8px rgba(15,23,42,0.12);transform:translateY(-1px);}" +
+    ".hv-dash .hv-tile:active{transform:translateY(0);box-shadow:0 1px 2px rgba(15,23,42,0.04);}" +
+    ".hv-dash .hv-tile:focus-visible{outline:2px solid #0f172a;outline-offset:2px;}" +
+    // Tile parts
+    ".hv-dash .hv-eyebrow{display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;color:#64748b;padding-right:44px;}" +
+    ".hv-dash .hv-eyebrow-sep{color:#cbd5e1;font-weight:500;}" +
+    ".hv-dash .hv-title{font-size:17px;font-weight:600;letter-spacing:-0.006em;color:#0f172a;line-height:1.35;margin:0;padding-right:36px;}" +
+    ".hv-dash .hv-blurb{font-size:13px;color:#475569;line-height:1.5;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}" +
+    ".hv-dash .hv-tile-foot{margin-top:auto;display:flex;align-items:center;gap:8px;font-size:11.5px;color:#94a3b8;}" +
+    ".hv-dash .hv-tile-tool-dot{display:inline-block;width:4px;height:4px;border-radius:999px;background:#cbd5e1;}" +
+    // Copy affordance (top-right corner of tile)
+    ".hv-dash .hv-copy-chip{position:absolute;top:18px;right:18px;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;border:1px solid #e2e8f0;background:#ffffff;color:#94a3b8;transition:all 160ms ease-out;}" +
+    ".hv-dash .hv-tile:hover .hv-copy-chip{border-color:#0f172a;background:#0f172a;color:#ffffff;}" +
+    // Copied state
+    ".hv-dash .hv-tile-copied{border-color:#0f172a;background:#0f172a;color:#ffffff;}" +
+    ".hv-dash .hv-tile-copied .hv-title{color:#ffffff;}" +
+    ".hv-dash .hv-tile-copied .hv-blurb{color:#cbd5e1;}" +
+    ".hv-dash .hv-tile-copied .hv-eyebrow{color:#cbd5e1;}" +
+    ".hv-dash .hv-tile-copied .hv-eyebrow-sep{color:#64748b;}" +
+    ".hv-dash .hv-tile-copied .hv-tile-foot{color:#94a3b8;}" +
+    ".hv-dash .hv-tile-copied .hv-copy-chip{border-color:#ffffff;background:#ffffff;color:#0f172a;}" +
     "";
 
   // ── Inline icons (heroicons-outline paths) ──────────────────
@@ -171,11 +159,11 @@
     copy:
       "M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75",
     check: "m4.5 12.75 6 6 9-13.5",
-    arrowRight: "M4.5 12h15m0 0-6.75-6.75M19.5 12l-6.75 6.75",
   };
 
   function Icon(name, size) {
-    var d = ICON_PATHS[name] || ICON_PATHS.arrowRight;
+    var d = ICON_PATHS[name] || ICON_PATHS.copy;
+    var s = size || 14;
     return h(
       "svg",
       {
@@ -184,8 +172,8 @@
         viewBox: "0 0 24 24",
         strokeWidth: 1.8,
         stroke: "currentColor",
-        width: size || 14,
-        height: size || 14,
+        width: s,
+        height: s,
         "aria-hidden": "true",
         style: { display: "inline-block", flexShrink: 0 },
       },
@@ -206,7 +194,7 @@
           setState(function (cur) {
             return cur.idx === idx ? { idx: null, at: 0 } : cur;
           });
-        }, 1800);
+        }, 1400);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(flash).catch(function () {
@@ -233,7 +221,7 @@
     return (uc && (uc.fullPrompt || uc.prompt)) || "";
   }
 
-  // ── Header ──────────────────────────────────────────────────
+  // ── Header (slim, neutral) ──────────────────────────────────
   function Header() {
     return h(
       "div",
@@ -252,32 +240,18 @@
           "div",
           { style: { flex: 1, minWidth: 0 } },
           h(
-            "div",
-            { style: { display: "flex", alignItems: "center", gap: 10 } },
-            h("span", {
-              className: "hv-eyebrow-dot",
+            "h1",
+            {
               style: {
-                width: 8,
-                height: 8,
-                borderRadius: 999,
-                display: "inline-block",
+                fontSize: 17,
+                fontWeight: 600,
+                letterSpacing: "-0.01em",
+                color: "#0f172a",
+                margin: 0,
+                lineHeight: 1.2,
               },
-              "aria-hidden": "true",
-            }),
-            h(
-              "h1",
-              {
-                style: {
-                  fontSize: 17,
-                  fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                  color: "#0f172a",
-                  margin: 0,
-                  lineHeight: 1.2,
-                },
-              },
-              AGENT.name,
-            ),
+            },
+            AGENT.name,
           ),
           h(
             "p",
@@ -293,312 +267,61 @@
             AGENT.tagline,
           ),
         ),
-        h(
-          "span",
-          {
-            style: {
-              flexShrink: 0,
-              marginTop: 2,
-              fontSize: 11,
-              color: "#94a3b8",
-              letterSpacing: "0.02em",
-              whiteSpace: "nowrap",
-            },
-          },
-          "Click any mission to copy a ready prompt",
-        ),
       ),
     );
   }
 
-  // ── Featured mission ────────────────────────────────────────
-  function Featured(props) {
+  // ── Mission tile ────────────────────────────────────────────
+  function Tile(props) {
     var uc = props.useCase;
     var idx = props.idx;
     var isCopied = props.copiedIdx === idx;
     var onCopy = props.onCopy;
 
     return h(
-      "section",
+      "button",
       {
-        className: "hv-featured",
-        style: { padding: "44px 40px 48px 40px" },
-      },
-      // Eyebrow
-      h(
-        "div",
-        {
-          style: {
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            marginBottom: 14,
-          },
-        },
-        h(
-          "span",
-          {
-            className: "hv-eyebrow",
-            style: {
-              fontSize: 10.5,
-              letterSpacing: "0.16em",
-              fontWeight: 700,
-              textTransform: "uppercase",
-            },
-          },
-          "Start here",
-        ),
-        uc.category
-          ? h(
-              "span",
-              {
-                style: {
-                  fontSize: 10.5,
-                  letterSpacing: "0.16em",
-                  fontWeight: 500,
-                  textTransform: "uppercase",
-                  color: "#94a3b8",
-                },
-              },
-              "· " + uc.category,
-            )
-          : null,
-      ),
-      // Title
-      h(
-        "h2",
-        {
-          className: "hv-featured-title",
-          style: {
-            fontSize: 30,
-            lineHeight: 1.15,
-            color: "#0f172a",
-            margin: 0,
-            maxWidth: 720,
-          },
-        },
-        uc.title || "",
-      ),
-      // Outcome
-      uc.outcome
-        ? h(
-            "p",
-            {
-              style: {
-                marginTop: 14,
-                fontSize: 14.5,
-                lineHeight: 1.6,
-                color: "#475569",
-                maxWidth: 640,
-              },
-            },
-            uc.outcome,
-          )
-        : null,
-      // CTA
-      h(
-        "div",
-        {
-          style: {
-            marginTop: 28,
-            display: "flex",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "16px 20px",
-          },
-        },
-        h(
-          "button",
-          {
-            type: "button",
-            onClick: function () {
-              onCopy(payloadFor(uc), idx);
-            },
-            className: "hv-cta" + (isCopied ? " hv-cta-copied" : ""),
-            style: {
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "11px 20px",
-              borderRadius: 999,
-              fontSize: 13.5,
-              fontWeight: 600,
-              letterSpacing: "-0.005em",
-            },
-          },
-          Icon(isCopied ? "check" : "copy", 15),
-          h(
-            "span",
-            null,
-            isCopied ? "Copied — paste into a new mission" : "Copy this prompt",
-          ),
-          isCopied ? null : Icon("arrowRight", 13),
-        ),
-        uc.tool
-          ? h(
-              "span",
-              {
-                style: {
-                  fontSize: 11.5,
-                  color: "#64748b",
-                  letterSpacing: "0.02em",
-                },
-              },
-              "Uses " + uc.tool,
-            )
-          : null,
-      ),
-    );
-  }
-
-  // ── Mission row ─────────────────────────────────────────────
-  function Row(props) {
-    var uc = props.useCase;
-    var idx = props.idx;
-    var isCopied = props.copiedIdx === idx;
-    var onCopy = props.onCopy;
-
-    return h(
-      "div",
-      {
-        className: "hv-row",
-        role: "button",
-        tabIndex: 0,
+        type: "button",
         onClick: function () {
           onCopy(payloadFor(uc), idx);
         },
-        onKeyDown: function (e) {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onCopy(payloadFor(uc), idx);
-          }
-        },
-        style: {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 24,
-          padding: "16px 12px 16px 16px",
-        },
+        className: "hv-tile" + (isCopied ? " hv-tile-copied" : ""),
+        "aria-label": "Copy prompt: " + (uc.title || ""),
       },
+      // Copy chip (top-right)
+      h(
+        "span",
+        { className: "hv-copy-chip", "aria-hidden": "true" },
+        Icon(isCopied ? "check" : "copy", 14),
+      ),
+      // Eyebrow: category (· tool)
       h(
         "div",
-        { style: { flex: 1, minWidth: 0 } },
-        h(
-          "h3",
-          {
-            className: "hv-row-title",
-            style: {
-              fontSize: 15,
-              fontWeight: 600,
-              color: "#0f172a",
-              margin: 0,
-              lineHeight: 1.35,
-              letterSpacing: "-0.005em",
-            },
-          },
-          uc.title || "",
-        ),
-        uc.outcome
+        { className: "hv-eyebrow" },
+        h("span", null, uc.category || "Mission"),
+        uc.tool
           ? h(
-              "p",
-              {
-                style: {
-                  marginTop: 4,
-                  fontSize: 12.5,
-                  color: "#64748b",
-                  lineHeight: 1.5,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                },
-              },
-              uc.outcome,
+              React.Fragment || "span",
+              null,
+              h("span", { className: "hv-eyebrow-sep" }, "·"),
+              h("span", null, uc.tool),
             )
           : null,
       ),
-      h(
-        "span",
-        {
-          className:
-            "hv-copy-pill" + (isCopied ? " hv-copy-pill-copied" : ""),
-        },
-        Icon(isCopied ? "check" : "copy", 13),
-        h(
-          "span",
-          null,
-          isCopied ? "Copied" : "Copy",
-        ),
-      ),
-    );
-  }
-
-  // ── Category section ────────────────────────────────────────
-  function CategorySection(props) {
-    return h(
-      "section",
-      { style: { marginBottom: 36 } },
-      h(
-        "div",
-        {
-          style: {
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            marginBottom: 10,
-            paddingLeft: 16,
-          },
-        },
-        h("span", {
-          className: "hv-cat-rule",
-          style: {
-            display: "inline-block",
-            width: 14,
-            height: 2,
-            borderRadius: 1,
-          },
-          "aria-hidden": "true",
-        }),
-        h(
-          "h2",
-          {
-            className: "hv-cat-label",
-            style: {
-              fontSize: 10.5,
-              letterSpacing: "0.16em",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              margin: 0,
-            },
-          },
-          props.category,
-        ),
-        h(
-          "span",
-          {
-            style: {
-              fontSize: 11,
-              color: "#cbd5e1",
-              fontVariantNumeric: "tabular-nums",
-              fontWeight: 600,
-            },
-          },
-          props.items.length,
-        ),
-      ),
-      h(
-        "div",
-        null,
-        props.items.map(function (item) {
-          return h(Row, {
-            key: item.idx,
-            useCase: item.useCase,
-            idx: item.idx,
-            copiedIdx: props.copiedIdx,
-            onCopy: props.onCopy,
-          });
-        }),
-      ),
+      // Title — the CTA
+      h("h3", { className: "hv-title" }, uc.title || ""),
+      // Blurb — super-short context (6–12 words)
+      uc.blurb
+        ? h("p", { className: "hv-blurb" }, uc.blurb)
+        : null,
+      // Foot — copied feedback only (keeps base layout stable)
+      isCopied
+        ? h(
+            "div",
+            { className: "hv-tile-foot" },
+            h("span", null, "Copied · paste into a new mission"),
+          )
+        : null,
     );
   }
 
@@ -609,18 +332,19 @@
       { style: { padding: "48px 40px" } },
       h(
         "p",
-        { style: { fontSize: 14, fontWeight: 600, color: "#334155", margin: 0 } },
+        {
+          style: {
+            fontSize: 14,
+            fontWeight: 600,
+            color: "#334155",
+            margin: 0,
+          },
+        },
         "No missions declared yet.",
       ),
       h(
         "p",
-        {
-          style: {
-            marginTop: 6,
-            fontSize: 13,
-            color: "#64748b",
-          },
-        },
+        { style: { marginTop: 6, fontSize: 13, color: "#64748b" } },
         "This agent will grow its menu over time.",
       ),
     );
@@ -631,71 +355,67 @@
     var clipboard = useClipboard();
     var useCases = AGENT.useCases || [];
 
-    var content;
+    var body;
     if (useCases.length === 0) {
-      content = h(Empty);
+      body = h(Empty);
     } else {
-      var featured = { useCase: useCases[0], idx: 0 };
-      var rest = useCases.slice(1);
-
-      var groups = (function () {
-        if (rest.length === 0) return [];
-        var order = [];
-        var map = {};
-        rest.forEach(function (uc, i) {
-          var cat = uc.category || "Other";
-          if (!map[cat]) {
-            map[cat] = [];
-            order.push(cat);
-          }
-          map[cat].push({ useCase: uc, idx: i + 1 });
-        });
-        return order.map(function (cat) {
-          return { category: cat, items: map[cat] };
-        });
-      })();
-
-      content = h(
-        React.Fragment || "div",
-        null,
-        h(Featured, {
-          useCase: featured.useCase,
-          idx: featured.idx,
-          copiedIdx: clipboard.copiedIdx,
-          onCopy: clipboard.copy,
-        }),
-        groups.length > 0
-          ? h(
-              "div",
-              { style: { padding: "36px 40px 48px 40px" } },
-              h(
-                "div",
-                {
-                  style: {
-                    marginBottom: 20,
-                    fontSize: 11,
-                    letterSpacing: "0.16em",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    color: "#94a3b8",
-                  },
-                },
-                "Or browse · " +
-                  rest.length +
-                  " more mission" +
-                  (rest.length === 1 ? "" : "s"),
-              ),
-              groups.map(function (g) {
-                return h(CategorySection, {
-                  key: g.category,
-                  category: g.category,
-                  items: g.items,
-                  copiedIdx: clipboard.copiedIdx,
-                  onCopy: clipboard.copy,
-                });
-              }),
-            )
-          : null,
+      body = h(
+        "div",
+        { style: { padding: "28px 40px 56px 40px" } },
+        // Intro meta row
+        h(
+          "div",
+          {
+            style: {
+              marginBottom: 18,
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              gap: 16,
+              flexWrap: "wrap",
+            },
+          },
+          h(
+            "p",
+            {
+              style: {
+                fontSize: 13,
+                color: "#475569",
+                margin: 0,
+                lineHeight: 1.5,
+              },
+            },
+            useCases.length +
+              " " +
+              (useCases.length === 1 ? "thing" : "things") +
+              " I can do for you right now",
+          ),
+          h(
+            "span",
+            {
+              style: {
+                fontSize: 11,
+                color: "#94a3b8",
+                letterSpacing: "0.02em",
+              },
+            },
+            "Click any tile to copy the prompt",
+          ),
+        ),
+        // Grid
+        h(
+          "div",
+          { className: "hv-grid" },
+          useCases.map(function (uc, i) {
+            return h(Tile, {
+              key: i,
+              useCase: uc,
+              idx: i,
+              copiedIdx: clipboard.copiedIdx,
+              onCopy: clipboard.copy,
+            });
+          }),
+        ),
       );
     }
 
@@ -714,7 +434,7 @@
       },
       h("style", { dangerouslySetInnerHTML: { __html: STYLE_CSS } }),
       h(Header),
-      content,
+      body,
     );
   }
 

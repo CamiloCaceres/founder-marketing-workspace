@@ -2,19 +2,15 @@
 // Hand-crafted IIFE. No ES modules, no build step, no import statements.
 // Access React via window.Houston.React. Export via window.__houston_bundle__.
 //
-// This dashboard is the founder's first-action menu for the agent: a
-// slim sticky header, one featured "Start here" mission inside a
-// tinted panel, then a dense categorized list of remaining missions.
-// Each row copies a hidden `fullPrompt` (richer than the visible
-// title) to clipboard — the Overview surface stays clean while the
-// agent gets enough context.
+// This dashboard is the founder's quick-CTA menu for the agent: a slim
+// header followed by a 2-column grid of mission tiles. Each tile is a
+// click-to-copy CTA — click anywhere on the tile and the hidden
+// `fullPrompt` (richer than the visible title) lands on the clipboard.
 //
-// Styling note: accent colors are applied via an injected <style>
-// block using CSS custom properties (one palette per accent). This
-// bypasses Houston's Tailwind content scan, which only picks up
-// classes that appear literally in other scanned files. Relying on
-// `bg-{accent}-600` etc. would render as no-op because those classes
-// aren't present in Houston's bundled CSS.
+// Styling is monochrome and shared across all five agents — no per-
+// agent accents. Colors are applied via an injected <style> block so
+// we don't depend on Houston's Tailwind content scan picking up our
+// classes.
 //
 // Reactivity intent: useHoustonEvent("houston-event", ...) is the target
 // pattern. Injected-script bundles cannot currently receive that event
@@ -37,6 +33,7 @@
     {
       "category": "Campaigns",
       "title": "Plan a Google Ads search campaign end-to-end",
+      "blurb": "Audience, keywords, budget, KPIs — agency-ready brief.",
       "prompt": "Plan a Google Ads search campaign for {keyword cluster}.",
       "fullPrompt": "Plan a Google Ads search campaign for {keyword cluster}. Use the plan-paid-campaign skill. Before writing, read the positioning doc and my config (channels, analytics, primary conversion). I want a full brief I could hand to an agency: audience + intent, keyword/placement strategy with negatives, ad-group structure, budget at three tiers (lean / base / aggressive), landing-page requirements, tracking + UTM plan, and KPI targets tied to my primary conversion. Save it to campaigns/google-ads-{slug}.md and log it in outputs.json. Be opinionated — tell me which ad group to launch first.",
       "description": "Full brief: audience, keyword/placement strategy, ad-group structure, suggested budget, landing-page requirements, KPI targets. Ready to hand to an agency or run yourself.",
@@ -47,6 +44,7 @@
     {
       "category": "Competitive",
       "title": "Teardown a competitor's ads",
+      "blurb": "Their live angles, hooks, and what to steal.",
       "prompt": "Teardown {competitor}'s current ads from Meta Ad Library and LinkedIn Ad Library.",
       "fullPrompt": "Pull {competitor}'s live ad creative from Meta Ad Library, LinkedIn Ad Library, and Google Ads Transparency via web-scrape. Use the monitor-competitor-ads skill. For each ad identify the angle, hook, offer, and which stage of the funnel it targets. Group by repeated angles (those are their bets). Write the teardown to competitor-ads/{competitor}-{YYYY-MM-DD}.md. Close with a 'steal this' list of 3 angles I should test against them — tied back to our positioning. Log it in outputs.json.",
       "description": "Pull their live creative from Meta Ad Library / LinkedIn Ad Library / Google Ads Transparency. Extract the angles, hooks, and offers they're testing.",
@@ -57,6 +55,7 @@
     {
       "category": "Ad copy",
       "title": "Draft ad copy grounded in real customer language",
+      "blurb": "10 variants — each cites the review quote behind it.",
       "prompt": "Draft 10 ad variants grounded in real customer language from G2 reviews.",
       "fullPrompt": "Draft 10 ad variants for {campaign or product} grounded in actual customer language. Use the generate-ad-copy skill. Pull phrases from G2, Capterra, Trustpilot, and relevant Reddit threads via web-scrape. For each of the 10 variants write headline + description and cite the source quote that inspired it — verbatim, with link. No invented angles. No marketing adjectives that don't appear somewhere in the reviews. Save to ad-copy/{campaign-slug}.md and log it in outputs.json. Flag the 3 I should launch first and why.",
       "description": "Pull phrases from G2 / Capterra / Trustpilot (via web scrape) and write headlines + descriptions that sound like your customers talking — not like a marketer pitching.",
@@ -67,6 +66,7 @@
     {
       "category": "CRO",
       "title": "Rigorously critique a landing page",
+      "blurb": "6 dimensions scored, fixes ranked by lift × effort.",
       "prompt": "Critique the landing page at {url}. Score each dimension and give me a fix list.",
       "fullPrompt": "I want a rigorous CRO teardown of {url}. Use the critique-landing-page skill and fetch the page via Firecrawl. Score 6 dimensions 0–3: headline clarity, value prop, social proof, CTA, objection handling, visual hierarchy. Call out above-the-fold vs below-the-fold separately. Then give me a prioritized fix list — each fix with the expected lift direction, effort (S/M/L), and the exact copy or element change. Save to cro-critiques/{url-slug}-{YYYY-MM-DD}.md and log in outputs.json. Don't hedge — I'll ship the top 3 fixes this week.",
       "description": "Fetch via Firecrawl. Score 6 dimensions 0–3: headline clarity, value prop, social proof, CTA, objection handling, visual hierarchy. Then a prioritized fix list — not a generic lecture.",
@@ -77,6 +77,7 @@
     {
       "category": "Experimentation",
       "title": "Design a proper A/B test, not a coin flip",
+      "blurb": "Hypothesis, MDE, power, go/no-go — a real spec.",
       "prompt": "Design an A/B test for the pricing page headline.",
       "fullPrompt": "Design a proper A/B test for {change — e.g. the pricing page headline}. Use the design-ab-test skill. I want a full spec I could ship to engineering: hypothesis in PICOT form, the control and variant rendered as copy (or mockup pseudo-code), primary and secondary metrics tied to my analytics stack, sample-size estimate with the MDE and power I'm assuming, expected duration at current traffic, and go/no-go criteria. Call out risks and confounds. Save to ab-tests/{slug}.md and log in outputs.json. If traffic is too low for a real test, say so and suggest a qualitative alternative.",
       "description": "Full spec: hypothesis (PICOT), control vs variant, primary + secondary metrics, sample-size estimate with MDE + power, duration, go/no-go criteria — so you don't ship the loser.",
@@ -86,6 +87,7 @@
     {
       "category": "Measurement",
       "title": "Spec event tracking + a UTM matrix",
+      "blurb": "Events, properties, owners — engineering-ready spec.",
       "prompt": "Spec the event tracking plan for sign-up → activation with GA4 and give me a UTM naming matrix.",
       "fullPrompt": "Spec the full event-tracking plan for sign-up → activation in GA4 (or my configured analytics tool — check config/). Use the setup-tracking skill. Define each event: name, trigger condition, required properties, owner on eng, and the funnel step it maps to. Then give me a UTM naming matrix so paid / social / email / referral are all comparable downstream — with concrete examples per channel. Save to tracking-plans/{slug}.md and log it in outputs.json. I'm going to hand this directly to engineering, so be exact.",
       "description": "Event names, triggers, properties, and owner per step. A UTM matrix so paid / social / email are comparable in GA4.",
@@ -96,6 +98,7 @@
     {
       "category": "Measurement",
       "title": "Weekly funnel readout — find the leak",
+      "blurb": "Biggest drop + 2–3 experiments ranked by lift/effort.",
       "prompt": "Give me the weekly funnel readout from PostHog — where are we leaking?",
       "fullPrompt": "Run the weekly funnel readout. Use the analyze-funnel skill. Pull last-7-days and trailing-4-week conversion at each step from my connected analytics (PostHog, GA4, or Mixpanel — whatever's in config/). Compare to the prior 4 weeks. Flag the biggest leak and whether it's new. Recommend 2–3 experiments ranked by expected lift × confidence ÷ effort — each with a one-line hypothesis. Save to funnel-reviews/{YYYY-MM-DD}.md and log it in outputs.json. No dashboard dumps — I want a decision, not a view.",
       "description": "Compute conversion at each step from connected analytics (PostHog / GA4 / Mixpanel). Flag the biggest drop, recommend 2–3 experiments ranked by expected lift vs effort.",
@@ -107,55 +110,39 @@
 };
   // ══════════════════════════════════════════════════════════
 
-  // ── Accent palettes (hex values from Tailwind's default palette) ──
-  // We apply these via CSS variables below so they work without any
-  // Tailwind classes being present in Houston's CSS bundle.
-  var PALETTES = {
-    indigo: { c50: "#eef2ff", c100: "#e0e7ff", c500: "#6366f1", c600: "#4f46e5", c700: "#4338ca" },
-    emerald: { c50: "#ecfdf5", c100: "#d1fae5", c500: "#10b981", c600: "#059669", c700: "#047857" },
-    amber: { c50: "#fffbeb", c100: "#fef3c7", c500: "#f59e0b", c600: "#d97706", c700: "#b45309" },
-    sky: { c50: "#f0f9ff", c100: "#e0f2fe", c500: "#0ea5e9", c600: "#0284c7", c700: "#0369a1" },
-    rose: { c50: "#fff1f2", c100: "#ffe4e6", c500: "#f43f5e", c600: "#e11d48", c700: "#be123c" },
-  };
-  var PALETTE = PALETTES[AGENT.accent] || PALETTES.indigo;
-
-  // Scoped style block. Everything is prefixed with `.hv-dash` so we
-  // don't leak into the host app's styles.
+  // ── Shared monochrome stylesheet ─────────────────────────────
+  // All five agents render identically. The only per-agent content is
+  // name, tagline, and useCases.
   var STYLE_CSS =
-    ".hv-dash{" +
-    "--hv-50:" + PALETTE.c50 + ";" +
-    "--hv-100:" + PALETTE.c100 + ";" +
-    "--hv-500:" + PALETTE.c500 + ";" +
-    "--hv-600:" + PALETTE.c600 + ";" +
-    "--hv-700:" + PALETTE.c700 + ";" +
-    "}" +
+    ".hv-dash{background:#ffffff;color:#0f172a;}" +
     // Sticky header
     ".hv-dash .hv-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e2e8f0;}" +
-    // Featured panel
-    ".hv-dash .hv-featured{position:relative;background:linear-gradient(180deg,var(--hv-50) 0%,rgba(255,255,255,0) 85%);border-left:3px solid var(--hv-500);border-bottom:1px solid #e2e8f0;}" +
-    ".hv-dash .hv-eyebrow{color:var(--hv-700);}" +
-    ".hv-dash .hv-eyebrow-dot{background:var(--hv-500);}" +
-    ".hv-dash .hv-featured-title{font-family:ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;font-weight:600;letter-spacing:-0.01em;}" +
-    // CTA button
-    ".hv-dash .hv-cta{background:var(--hv-600);color:#fff;border:none;cursor:pointer;transition:background 160ms ease-out,transform 160ms ease-out;}" +
-    ".hv-dash .hv-cta:hover{background:var(--hv-700);}" +
-    ".hv-dash .hv-cta:active{transform:translateY(1px);}" +
-    ".hv-dash .hv-cta-copied{background:#0f172a;}" +
-    // Category label + rule
-    ".hv-dash .hv-cat-label{color:var(--hv-700);}" +
-    ".hv-dash .hv-cat-rule{background:var(--hv-500);}" +
-    // Rows
-    ".hv-dash .hv-row{cursor:pointer;transition:background 120ms ease-out;border-top:1px solid #f1f5f9;}" +
-    ".hv-dash .hv-row:first-child{border-top:1px solid #e2e8f0;}" +
-    ".hv-dash .hv-row:last-child{border-bottom:1px solid #e2e8f0;}" +
-    ".hv-dash .hv-row:hover{background:color-mix(in srgb,var(--hv-500) 5%,transparent);}" +
-    ".hv-dash .hv-row:hover .hv-row-title{color:var(--hv-700);}" +
-    ".hv-dash .hv-row-title{transition:color 120ms ease-out;}" +
-    // Copy pill on each row
-    ".hv-dash .hv-copy-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:11.5px;font-weight:500;transition:all 140ms ease-out;}" +
-    ".hv-dash .hv-row:hover .hv-copy-pill{border-color:var(--hv-500);color:var(--hv-700);}" +
-    ".hv-dash .hv-copy-pill-copied{background:var(--hv-600);color:#fff;border-color:var(--hv-600);}" +
-    ".hv-dash .hv-row:hover .hv-copy-pill-copied{background:var(--hv-600);color:#fff;border-color:var(--hv-600);}" +
+    // Grid of mission tiles
+    ".hv-dash .hv-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}" +
+    "@media (max-width: 720px){.hv-dash .hv-grid{grid-template-columns:1fr;}}" +
+    // Tile base
+    ".hv-dash .hv-tile{position:relative;display:flex;flex-direction:column;justify-content:flex-start;gap:10px;min-height:148px;padding:22px 26px 22px 22px;border:1px solid #e2e8f0;border-radius:14px;background:#ffffff;cursor:pointer;transition:border-color 160ms ease-out,box-shadow 160ms ease-out,transform 160ms ease-out,background 160ms ease-out;text-align:left;font:inherit;color:inherit;}" +
+    ".hv-dash .hv-tile:hover{border-color:#0f172a;box-shadow:0 6px 20px -8px rgba(15,23,42,0.12);transform:translateY(-1px);}" +
+    ".hv-dash .hv-tile:active{transform:translateY(0);box-shadow:0 1px 2px rgba(15,23,42,0.04);}" +
+    ".hv-dash .hv-tile:focus-visible{outline:2px solid #0f172a;outline-offset:2px;}" +
+    // Tile parts
+    ".hv-dash .hv-eyebrow{display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;color:#64748b;padding-right:44px;}" +
+    ".hv-dash .hv-eyebrow-sep{color:#cbd5e1;font-weight:500;}" +
+    ".hv-dash .hv-title{font-size:17px;font-weight:600;letter-spacing:-0.006em;color:#0f172a;line-height:1.35;margin:0;padding-right:36px;}" +
+    ".hv-dash .hv-blurb{font-size:13px;color:#475569;line-height:1.5;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}" +
+    ".hv-dash .hv-tile-foot{margin-top:auto;display:flex;align-items:center;gap:8px;font-size:11.5px;color:#94a3b8;}" +
+    ".hv-dash .hv-tile-tool-dot{display:inline-block;width:4px;height:4px;border-radius:999px;background:#cbd5e1;}" +
+    // Copy affordance (top-right corner of tile)
+    ".hv-dash .hv-copy-chip{position:absolute;top:18px;right:18px;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;border:1px solid #e2e8f0;background:#ffffff;color:#94a3b8;transition:all 160ms ease-out;}" +
+    ".hv-dash .hv-tile:hover .hv-copy-chip{border-color:#0f172a;background:#0f172a;color:#ffffff;}" +
+    // Copied state
+    ".hv-dash .hv-tile-copied{border-color:#0f172a;background:#0f172a;color:#ffffff;}" +
+    ".hv-dash .hv-tile-copied .hv-title{color:#ffffff;}" +
+    ".hv-dash .hv-tile-copied .hv-blurb{color:#cbd5e1;}" +
+    ".hv-dash .hv-tile-copied .hv-eyebrow{color:#cbd5e1;}" +
+    ".hv-dash .hv-tile-copied .hv-eyebrow-sep{color:#64748b;}" +
+    ".hv-dash .hv-tile-copied .hv-tile-foot{color:#94a3b8;}" +
+    ".hv-dash .hv-tile-copied .hv-copy-chip{border-color:#ffffff;background:#ffffff;color:#0f172a;}" +
     "";
 
   // ── Inline icons (heroicons-outline paths) ──────────────────
@@ -163,11 +150,11 @@
     copy:
       "M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75",
     check: "m4.5 12.75 6 6 9-13.5",
-    arrowRight: "M4.5 12h15m0 0-6.75-6.75M19.5 12l-6.75 6.75",
   };
 
   function Icon(name, size) {
-    var d = ICON_PATHS[name] || ICON_PATHS.arrowRight;
+    var d = ICON_PATHS[name] || ICON_PATHS.copy;
+    var s = size || 14;
     return h(
       "svg",
       {
@@ -176,8 +163,8 @@
         viewBox: "0 0 24 24",
         strokeWidth: 1.8,
         stroke: "currentColor",
-        width: size || 14,
-        height: size || 14,
+        width: s,
+        height: s,
         "aria-hidden": "true",
         style: { display: "inline-block", flexShrink: 0 },
       },
@@ -198,7 +185,7 @@
           setState(function (cur) {
             return cur.idx === idx ? { idx: null, at: 0 } : cur;
           });
-        }, 1800);
+        }, 1400);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(flash).catch(function () {
@@ -225,7 +212,7 @@
     return (uc && (uc.fullPrompt || uc.prompt)) || "";
   }
 
-  // ── Header ──────────────────────────────────────────────────
+  // ── Header (slim, neutral) ──────────────────────────────────
   function Header() {
     return h(
       "div",
@@ -244,32 +231,18 @@
           "div",
           { style: { flex: 1, minWidth: 0 } },
           h(
-            "div",
-            { style: { display: "flex", alignItems: "center", gap: 10 } },
-            h("span", {
-              className: "hv-eyebrow-dot",
+            "h1",
+            {
               style: {
-                width: 8,
-                height: 8,
-                borderRadius: 999,
-                display: "inline-block",
+                fontSize: 17,
+                fontWeight: 600,
+                letterSpacing: "-0.01em",
+                color: "#0f172a",
+                margin: 0,
+                lineHeight: 1.2,
               },
-              "aria-hidden": "true",
-            }),
-            h(
-              "h1",
-              {
-                style: {
-                  fontSize: 17,
-                  fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                  color: "#0f172a",
-                  margin: 0,
-                  lineHeight: 1.2,
-                },
-              },
-              AGENT.name,
-            ),
+            },
+            AGENT.name,
           ),
           h(
             "p",
@@ -285,312 +258,61 @@
             AGENT.tagline,
           ),
         ),
-        h(
-          "span",
-          {
-            style: {
-              flexShrink: 0,
-              marginTop: 2,
-              fontSize: 11,
-              color: "#94a3b8",
-              letterSpacing: "0.02em",
-              whiteSpace: "nowrap",
-            },
-          },
-          "Click any mission to copy a ready prompt",
-        ),
       ),
     );
   }
 
-  // ── Featured mission ────────────────────────────────────────
-  function Featured(props) {
+  // ── Mission tile ────────────────────────────────────────────
+  function Tile(props) {
     var uc = props.useCase;
     var idx = props.idx;
     var isCopied = props.copiedIdx === idx;
     var onCopy = props.onCopy;
 
     return h(
-      "section",
+      "button",
       {
-        className: "hv-featured",
-        style: { padding: "44px 40px 48px 40px" },
-      },
-      // Eyebrow
-      h(
-        "div",
-        {
-          style: {
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            marginBottom: 14,
-          },
-        },
-        h(
-          "span",
-          {
-            className: "hv-eyebrow",
-            style: {
-              fontSize: 10.5,
-              letterSpacing: "0.16em",
-              fontWeight: 700,
-              textTransform: "uppercase",
-            },
-          },
-          "Start here",
-        ),
-        uc.category
-          ? h(
-              "span",
-              {
-                style: {
-                  fontSize: 10.5,
-                  letterSpacing: "0.16em",
-                  fontWeight: 500,
-                  textTransform: "uppercase",
-                  color: "#94a3b8",
-                },
-              },
-              "· " + uc.category,
-            )
-          : null,
-      ),
-      // Title
-      h(
-        "h2",
-        {
-          className: "hv-featured-title",
-          style: {
-            fontSize: 30,
-            lineHeight: 1.15,
-            color: "#0f172a",
-            margin: 0,
-            maxWidth: 720,
-          },
-        },
-        uc.title || "",
-      ),
-      // Outcome
-      uc.outcome
-        ? h(
-            "p",
-            {
-              style: {
-                marginTop: 14,
-                fontSize: 14.5,
-                lineHeight: 1.6,
-                color: "#475569",
-                maxWidth: 640,
-              },
-            },
-            uc.outcome,
-          )
-        : null,
-      // CTA
-      h(
-        "div",
-        {
-          style: {
-            marginTop: 28,
-            display: "flex",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "16px 20px",
-          },
-        },
-        h(
-          "button",
-          {
-            type: "button",
-            onClick: function () {
-              onCopy(payloadFor(uc), idx);
-            },
-            className: "hv-cta" + (isCopied ? " hv-cta-copied" : ""),
-            style: {
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "11px 20px",
-              borderRadius: 999,
-              fontSize: 13.5,
-              fontWeight: 600,
-              letterSpacing: "-0.005em",
-            },
-          },
-          Icon(isCopied ? "check" : "copy", 15),
-          h(
-            "span",
-            null,
-            isCopied ? "Copied — paste into a new mission" : "Copy this prompt",
-          ),
-          isCopied ? null : Icon("arrowRight", 13),
-        ),
-        uc.tool
-          ? h(
-              "span",
-              {
-                style: {
-                  fontSize: 11.5,
-                  color: "#64748b",
-                  letterSpacing: "0.02em",
-                },
-              },
-              "Uses " + uc.tool,
-            )
-          : null,
-      ),
-    );
-  }
-
-  // ── Mission row ─────────────────────────────────────────────
-  function Row(props) {
-    var uc = props.useCase;
-    var idx = props.idx;
-    var isCopied = props.copiedIdx === idx;
-    var onCopy = props.onCopy;
-
-    return h(
-      "div",
-      {
-        className: "hv-row",
-        role: "button",
-        tabIndex: 0,
+        type: "button",
         onClick: function () {
           onCopy(payloadFor(uc), idx);
         },
-        onKeyDown: function (e) {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onCopy(payloadFor(uc), idx);
-          }
-        },
-        style: {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 24,
-          padding: "16px 12px 16px 16px",
-        },
+        className: "hv-tile" + (isCopied ? " hv-tile-copied" : ""),
+        "aria-label": "Copy prompt: " + (uc.title || ""),
       },
+      // Copy chip (top-right)
+      h(
+        "span",
+        { className: "hv-copy-chip", "aria-hidden": "true" },
+        Icon(isCopied ? "check" : "copy", 14),
+      ),
+      // Eyebrow: category (· tool)
       h(
         "div",
-        { style: { flex: 1, minWidth: 0 } },
-        h(
-          "h3",
-          {
-            className: "hv-row-title",
-            style: {
-              fontSize: 15,
-              fontWeight: 600,
-              color: "#0f172a",
-              margin: 0,
-              lineHeight: 1.35,
-              letterSpacing: "-0.005em",
-            },
-          },
-          uc.title || "",
-        ),
-        uc.outcome
+        { className: "hv-eyebrow" },
+        h("span", null, uc.category || "Mission"),
+        uc.tool
           ? h(
-              "p",
-              {
-                style: {
-                  marginTop: 4,
-                  fontSize: 12.5,
-                  color: "#64748b",
-                  lineHeight: 1.5,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                },
-              },
-              uc.outcome,
+              React.Fragment || "span",
+              null,
+              h("span", { className: "hv-eyebrow-sep" }, "·"),
+              h("span", null, uc.tool),
             )
           : null,
       ),
-      h(
-        "span",
-        {
-          className:
-            "hv-copy-pill" + (isCopied ? " hv-copy-pill-copied" : ""),
-        },
-        Icon(isCopied ? "check" : "copy", 13),
-        h(
-          "span",
-          null,
-          isCopied ? "Copied" : "Copy",
-        ),
-      ),
-    );
-  }
-
-  // ── Category section ────────────────────────────────────────
-  function CategorySection(props) {
-    return h(
-      "section",
-      { style: { marginBottom: 36 } },
-      h(
-        "div",
-        {
-          style: {
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            marginBottom: 10,
-            paddingLeft: 16,
-          },
-        },
-        h("span", {
-          className: "hv-cat-rule",
-          style: {
-            display: "inline-block",
-            width: 14,
-            height: 2,
-            borderRadius: 1,
-          },
-          "aria-hidden": "true",
-        }),
-        h(
-          "h2",
-          {
-            className: "hv-cat-label",
-            style: {
-              fontSize: 10.5,
-              letterSpacing: "0.16em",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              margin: 0,
-            },
-          },
-          props.category,
-        ),
-        h(
-          "span",
-          {
-            style: {
-              fontSize: 11,
-              color: "#cbd5e1",
-              fontVariantNumeric: "tabular-nums",
-              fontWeight: 600,
-            },
-          },
-          props.items.length,
-        ),
-      ),
-      h(
-        "div",
-        null,
-        props.items.map(function (item) {
-          return h(Row, {
-            key: item.idx,
-            useCase: item.useCase,
-            idx: item.idx,
-            copiedIdx: props.copiedIdx,
-            onCopy: props.onCopy,
-          });
-        }),
-      ),
+      // Title — the CTA
+      h("h3", { className: "hv-title" }, uc.title || ""),
+      // Blurb — super-short context (6–12 words)
+      uc.blurb
+        ? h("p", { className: "hv-blurb" }, uc.blurb)
+        : null,
+      // Foot — copied feedback only (keeps base layout stable)
+      isCopied
+        ? h(
+            "div",
+            { className: "hv-tile-foot" },
+            h("span", null, "Copied · paste into a new mission"),
+          )
+        : null,
     );
   }
 
@@ -601,18 +323,19 @@
       { style: { padding: "48px 40px" } },
       h(
         "p",
-        { style: { fontSize: 14, fontWeight: 600, color: "#334155", margin: 0 } },
+        {
+          style: {
+            fontSize: 14,
+            fontWeight: 600,
+            color: "#334155",
+            margin: 0,
+          },
+        },
         "No missions declared yet.",
       ),
       h(
         "p",
-        {
-          style: {
-            marginTop: 6,
-            fontSize: 13,
-            color: "#64748b",
-          },
-        },
+        { style: { marginTop: 6, fontSize: 13, color: "#64748b" } },
         "This agent will grow its menu over time.",
       ),
     );
@@ -623,71 +346,67 @@
     var clipboard = useClipboard();
     var useCases = AGENT.useCases || [];
 
-    var content;
+    var body;
     if (useCases.length === 0) {
-      content = h(Empty);
+      body = h(Empty);
     } else {
-      var featured = { useCase: useCases[0], idx: 0 };
-      var rest = useCases.slice(1);
-
-      var groups = (function () {
-        if (rest.length === 0) return [];
-        var order = [];
-        var map = {};
-        rest.forEach(function (uc, i) {
-          var cat = uc.category || "Other";
-          if (!map[cat]) {
-            map[cat] = [];
-            order.push(cat);
-          }
-          map[cat].push({ useCase: uc, idx: i + 1 });
-        });
-        return order.map(function (cat) {
-          return { category: cat, items: map[cat] };
-        });
-      })();
-
-      content = h(
-        React.Fragment || "div",
-        null,
-        h(Featured, {
-          useCase: featured.useCase,
-          idx: featured.idx,
-          copiedIdx: clipboard.copiedIdx,
-          onCopy: clipboard.copy,
-        }),
-        groups.length > 0
-          ? h(
-              "div",
-              { style: { padding: "36px 40px 48px 40px" } },
-              h(
-                "div",
-                {
-                  style: {
-                    marginBottom: 20,
-                    fontSize: 11,
-                    letterSpacing: "0.16em",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    color: "#94a3b8",
-                  },
-                },
-                "Or browse · " +
-                  rest.length +
-                  " more mission" +
-                  (rest.length === 1 ? "" : "s"),
-              ),
-              groups.map(function (g) {
-                return h(CategorySection, {
-                  key: g.category,
-                  category: g.category,
-                  items: g.items,
-                  copiedIdx: clipboard.copiedIdx,
-                  onCopy: clipboard.copy,
-                });
-              }),
-            )
-          : null,
+      body = h(
+        "div",
+        { style: { padding: "28px 40px 56px 40px" } },
+        // Intro meta row
+        h(
+          "div",
+          {
+            style: {
+              marginBottom: 18,
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              gap: 16,
+              flexWrap: "wrap",
+            },
+          },
+          h(
+            "p",
+            {
+              style: {
+                fontSize: 13,
+                color: "#475569",
+                margin: 0,
+                lineHeight: 1.5,
+              },
+            },
+            useCases.length +
+              " " +
+              (useCases.length === 1 ? "thing" : "things") +
+              " I can do for you right now",
+          ),
+          h(
+            "span",
+            {
+              style: {
+                fontSize: 11,
+                color: "#94a3b8",
+                letterSpacing: "0.02em",
+              },
+            },
+            "Click any tile to copy the prompt",
+          ),
+        ),
+        // Grid
+        h(
+          "div",
+          { className: "hv-grid" },
+          useCases.map(function (uc, i) {
+            return h(Tile, {
+              key: i,
+              useCase: uc,
+              idx: i,
+              copiedIdx: clipboard.copiedIdx,
+              onCopy: clipboard.copy,
+            });
+          }),
+        ),
       );
     }
 
@@ -706,7 +425,7 @@
       },
       h("style", { dangerouslySetInnerHTML: { __html: STYLE_CSS } }),
       h(Header),
-      content,
+      body,
     );
   }
 
