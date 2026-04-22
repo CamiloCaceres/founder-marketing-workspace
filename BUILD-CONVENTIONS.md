@@ -195,50 +195,61 @@ interface Output {
 - On update: refresh `updatedAt`, never touch `createdAt`.
 - Never overwrite the whole array — read, merge, write.
 
-## `bundle.js` — hand-crafted IIFE (DO NOT USE JSX / build tools)
+## `bundle.js` — hand-crafted IIFE, generated from a template
 
-Clone `../marketing-workspace/agents/strategist/bundle.js` exactly
-and customize ONLY these five blocks at the top:
+**Don't author `bundle.js` directly.** Every agent's `bundle.js` is
+generated from `scripts/bundle_template.js` + that agent's
+`houston.json` by `scripts/generate_bundles.py`. The bundle renders
+the agent's `useCases` as a card grid — the primary
+"what-can-this-agent-do" surface. No stats, no activity feed, no
+quick prompts.
 
-```js
-var AGENT_NAME = "{Agent Name}";
-var AGENT_TAGLINE = "{1-line tagline matching the role}";
-var ACCENT = "{tailwind-color-word}";  // indigo / emerald / amber / rose / sky
-var TYPE_COLORS = {
-  {your-output-types-from-data-schema}: "bg-{tw}-100 text-{tw}-800",
-  ...,
-  default: "bg-slate-200 text-slate-700"
-};
-var QUICK_PROMPTS = [
-  "{First prompt from the agent's README}",
-  "{...}",   // 5 prompts total
-];
-```
+**The only per-agent inputs:**
 
-The rest of the file (Stat, Badge, Empty, Dashboard, reload logic,
-5s polling fallback, `window.__houston_bundle__ = { Dashboard }`)
-stays identical.
+1. Agent display name (from `houston.json`).
+2. One-line tagline (mapped in `generate_bundles.py`'s `TAGLINES`
+   dict — keep it role-specific and opinionated).
+3. Accent hue (mapped in `generate_bundles.py`'s `ACCENTS` dict —
+   one of `indigo / emerald / amber / sky / rose`).
+4. `useCases` array from the agent's `houston.json`.
 
-**Hard rules for bundle.js:**
-
-- `var React = window.Houston.React;` — never `import React`.
-- Use `React.createElement` (aliased as `h`). No JSX.
-- Do NOT use `@houston-ai/core` — it's not exposed to bundle scope.
-  Inline Card / Badge / Empty equivalents with raw divs + Tailwind.
-- Keep the `useHoustonEvent("houston-event", ...)` literal string
-  in a comment — the Phase-6 grep check needs it.
-- 5s `setInterval(reload, 5000)` polling fallback is required
-  until Houston exposes `window.Houston` events.
-- Export: `window.__houston_bundle__ = { Dashboard: Dashboard };`
-
-**Verification:** every build subagent runs the Node shim to confirm
-the bundle loads:
+**To regenerate all 5 bundles after editing `useCases` or the
+template:**
 
 ```bash
-node -e "global.window={Houston:{React:{createElement:()=>null,useState:()=>[[],()=>{}],useEffect:()=>{},useCallback:f=>f}}}; eval(require('fs').readFileSync('bundle.js','utf8')); console.log(Object.keys(window.__houston_bundle__))"
+python3 scripts/generate_bundles.py
+```
+
+The script writes `agents/{agent-id}/bundle.js` for all five agents
+and verifies each loads via a Node shim.
+
+**Hard rules the template enforces:**
+
+- `var React = window.Houston.React;` — never `import React`.
+- `React.createElement` (aliased as `h`). No JSX, no build step.
+- Do NOT use `@houston-ai/core` — it's not exposed to bundle scope.
+  All UI primitives (card, chip, button) are inlined with Tailwind.
+- Keep the `useHoustonEvent("houston-event", ...)` literal string
+  in a comment — the Phase-6 grep check needs it.
+- Export: `window.__houston_bundle__ = { Dashboard: Dashboard };`.
+- Tailwind classes the template uses: look up each accent's full
+  class strings in the `ACCENTS` object at the top of the template.
+  Tailwind's JIT needs literal class strings, so we never build class
+  names dynamically with `"bg-" + hue + "-50"`.
+
+**Verification (already baked into the generator):**
+
+```bash
+node -e "global.window={Houston:{React:{createElement:()=>null,useState:()=>[{idx:null,at:0},()=>{}],useEffect:()=>{},useCallback:f=>f}}}; eval(require('fs').readFileSync('bundle.js','utf8')); console.log(Object.keys(window.__houston_bundle__))"
 ```
 
 Expected output: `[ 'Dashboard' ]`.
+
+**Single source of truth:** `useCases` live in each agent's
+`houston.json`. The Job Description → Use Cases sub-tab reads them
+live from config; the Overview dashboard reads them from the baked-in
+bundle. If you edit `useCases`, re-run the generator or the Overview
+dashboard will be stale.
 
 ## `data-schema.md` template
 

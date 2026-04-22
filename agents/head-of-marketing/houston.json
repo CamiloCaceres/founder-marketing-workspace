@@ -51,62 +51,67 @@
       "title": "Draft the positioning doc that unblocks everyone",
       "prompt": "Help me write a positioning statement for my product.",
       "description": "I'll walk you through a short interview and draft the full positioning doc — ICP, category, differentiators, brand voice, pricing stance, primary CTA. This doc is the source of truth the other four marketing agents read before they do anything.",
-      "outcome": "A filled-in product-marketing-context.md at my agent root. Your SEO, Growth, Lifecycle, and Social agents unlock the moment this exists.",
+      "outcome": "A filled-in product-marketing-context.md at my root. SEO, Growth, Lifecycle, Social unlock the moment this exists.",
       "skill": "define-positioning"
     },
     {
       "category": "Foundation",
-      "title": "Build a buyer persona you can actually use",
-      "prompt": "Build a buyer persona for early-stage {industry} founders with pains and jobs-to-be-done.",
-      "description": "A real persona doc: demographics, firmographics, jobs-to-be-done, pains ranked by how often they come up, signals that someone's in-market, objection patterns, and 1–2 anchor account examples.",
-      "outcome": "A persona at personas/{slug}.md + indexed in outputs.json. Ad copy, landing-page headlines, and sales pages pull from this.",
-      "skill": "profile-icp"
+      "title": "Build a buyer persona from your closed-won accounts",
+      "prompt": "Build a buyer persona for {segment} from my closed-won accounts in HubSpot.",
+      "description": "Pull your top closed-won accounts via connected CRM, extract common firmographics and roles, synthesize pains / JTBD / triggers / anchor accounts.",
+      "outcome": "A persona at personas/{slug}.md — the foundation ad copy and landing-page headlines pull from.",
+      "skill": "profile-icp",
+      "tool": "HubSpot"
     },
     {
       "category": "Competitive",
-      "title": "Weekly competitor pulse across 3 competitors",
-      "prompt": "Give me the weekly competitor pulse — what did {Competitor A}, {Competitor B}, and {Competitor C} ship this week?",
-      "description": "I'll scan each competitor's recent blog posts, product updates, ad activity, and social presence. I filter for what's a real threat vs. noise.",
-      "outcome": "A weekly digest at competitor-briefs/weekly-{YYYY-MM-DD}.md with moves to respond to and an ignore list.",
-      "skill": "track-competitors"
+      "title": "Weekly competitor pulse across 3 rivals",
+      "prompt": "Give me this week's competitor pulse across {Competitor A}, {Competitor B}, {Competitor C} — new posts, product updates, ads.",
+      "description": "Scan each competitor's recent blog posts, product updates (via Firecrawl), ad activity in Meta / LinkedIn Ad Library, and social presence. I filter real threats from noise.",
+      "outcome": "A weekly digest at competitor-briefs/weekly-{YYYY-MM-DD}.md with moves to respond to + an ignore list.",
+      "skill": "track-competitors",
+      "tool": "Firecrawl"
     },
     {
       "category": "Competitive",
       "title": "Deep teardown of one competitor",
-      "prompt": "Do a full teardown of {competitor} — positioning, pricing, content strategy, and where we have wedge opportunities vs them.",
-      "description": "One competitor, all dimensions: positioning statement, pricing, content strategy, messaging patterns, and where we have an unguarded flank we should press.",
-      "outcome": "A teardown at competitor-briefs/{competitor-slug}.md you can hand to Growth & Paid for ad angles.",
-      "skill": "track-competitors"
+      "prompt": "Do a full teardown of {competitor} — positioning, pricing, content, and where we can press.",
+      "description": "One competitor, all dimensions (via web scrape): positioning statement, pricing page, content strategy, messaging patterns, unguarded flanks to attack.",
+      "outcome": "Teardown at competitor-briefs/{competitor}.md. Send to Growth & Paid for ad angles.",
+      "skill": "track-competitors",
+      "tool": "Firecrawl"
     },
     {
       "category": "Launches",
       "title": "Sequence a 2-week launch across every agent",
       "prompt": "Plan the launch for {feature} over the next 2 weeks.",
-      "description": "I'll break the launch into pre-launch (7 days out), launch day, and post-launch. Each task is tagged to the right agent — SEO drafts the launch post, Growth preps paid creative, Lifecycle writes the announcement email, Social plans the posts.",
-      "outcome": "A launch plan at launches/{slug}.md with owner + timing per task. Copy each task into its agent to execute.",
+      "description": "Break the launch into pre-launch (7 days out), launch day, post-launch. Each task tagged to the right agent — SEO drafts the post, Growth preps creative, Lifecycle writes the email, Social plans the posts.",
+      "outcome": "A launch plan at launches/{slug}.md with owner + timing per task.",
       "skill": "plan-launch"
     },
     {
       "category": "Research",
-      "title": "Hand your SEO agent a proper research brief",
-      "prompt": "Research {topic} and give me a brief I can hand to the SEO agent.",
-      "description": "Deep research via your connected search / research providers. Structured brief with key findings, sources cited, and 3–5 angles worth writing about.",
-      "outcome": "A brief at research/{slug}.md. Send it to SEO & Content and it'll use it to draft the blog post.",
-      "skill": "synthesize-research"
+      "title": "Research a topic and hand SEO a brief",
+      "prompt": "Research {topic} with Exa and give me a brief I can hand to SEO.",
+      "description": "Deep research via Exa (or your connected search provider). Structured brief with key findings, sources cited, 3–5 angles worth writing about.",
+      "outcome": "A brief at research/{slug}.md. Send it to SEO & Content for blog drafting.",
+      "skill": "synthesize-research",
+      "tool": "Exa"
     },
     {
       "category": "Research",
       "title": "Mine sales calls for real customer language",
-      "prompt": "Mine my last 10 sales calls for positioning signals and objections.",
-      "description": "I pull transcripts from your connected meeting-notes app, extract verbatim customer phrases, rank pains by frequency, surface objection patterns, and flag positioning wedges.",
-      "outcome": "Insights at call-insights/{YYYY-MM-DD}-batch.md — the single best source for ad copy, landing-page headlines, and sales pages.",
-      "skill": "mine-sales-calls"
+      "prompt": "Mine my last 10 sales calls from Gong for positioning signals and objections.",
+      "description": "Pull transcripts from your connected call-recording app, extract verbatim customer phrases, rank pains by frequency, surface objection patterns, flag positioning wedges.",
+      "outcome": "Insights at call-insights/{YYYY-MM-DD}.md — the best source for ad copy and landing-page headlines.",
+      "skill": "mine-sales-calls",
+      "tool": "Gong"
     },
     {
       "category": "Reviews",
       "title": "The Monday marketing review in 2 minutes",
       "prompt": "Give me the Monday marketing review across all channels.",
-      "description": "I aggregate what each of the four other agents produced this week — blog posts shipped, campaigns running, emails drafted, social posts — and flag gaps (\"Lifecycle hasn't shipped a drip in 3 weeks\").",
+      "description": "Aggregate what each of the four other agents produced this week — blog posts shipped, campaigns running, emails drafted, social posts. Flag gaps like \"Lifecycle hasn't shipped a drip in 3 weeks.\"",
       "outcome": "A weekly review at reviews/{YYYY-MM-DD}.md with recommended next moves per agent.",
       "skill": "review-marketing-health"
     }

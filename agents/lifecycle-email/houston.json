@@ -50,40 +50,44 @@
     {
       "category": "Activation",
       "title": "Draft a 5-email welcome series for new signups",
-      "prompt": "Draft a 5-email welcome series for new signups.",
-      "description": "Day 0 / 1 / 3 / 7 / 14 sequence (override any cadence). Each email gets subject, preview, body, CTA, and the success metric I'd watch to judge it.",
+      "prompt": "Draft a 5-email welcome series for new signups in Customer.io.",
+      "description": "Day 0 / 1 / 3 / 7 / 14 sequence (override any cadence). Each email: subject, preview, body, CTA, success metric. Formatted for your connected ESP.",
       "outcome": "A full sequence at sequences/welcome-{variant}.md. Drop it into your email platform and ship.",
-      "skill": "draft-welcome-sequence"
+      "skill": "draft-welcome-sequence",
+      "tool": "Customer.io"
     },
     {
       "category": "Activation",
-      "title": "Re-activate users who signed up but never activated",
-      "prompt": "Design a re-activation drip for users who signed up but never activated.",
-      "description": "Event-triggered drip: the trigger event, frequency rules, branching if the user takes the desired action, and drafted copy per email. Honest about when to stop emailing.",
+      "title": "Re-activate signups who never activated",
+      "prompt": "Design a re-activation drip in Customer.io for users who signed up but never activated.",
+      "description": "Event-triggered drip: trigger event, frequency rules, branching if the user takes the desired action, drafted copy per email. Honest about when to stop emailing.",
       "outcome": "Drip plan at drips/{slug}.md with every email drafted and every branch labeled.",
-      "skill": "design-lifecycle-campaign"
+      "skill": "design-lifecycle-campaign",
+      "tool": "Customer.io"
     },
     {
       "category": "Newsletter",
       "title": "Draft this week's newsletter",
-      "prompt": "Draft this week's newsletter — here's what shipped: {paste details}.",
-      "description": "Subject + preview + body, with one clear through-line (not 5 updates glued together). I can pull source material from the SEO agent's outputs index if you point me there.",
-      "outcome": "Newsletter at newsletters/{YYYY-MM-DD}.md ready for your ESP.",
-      "skill": "write-newsletter"
+      "prompt": "Draft this week's newsletter for Beehiiv — here's what shipped: {paste details}.",
+      "description": "Subject + preview + body, with one clear through-line (not 5 updates glued together). Can pull source material from SEO agent's outputs if you point me there.",
+      "outcome": "Newsletter at newsletters/{YYYY-MM-DD}.md ready for Beehiiv.",
+      "skill": "write-newsletter",
+      "tool": "Beehiiv"
     },
     {
       "category": "Retention",
       "title": "Save a downgrade without the guilt trip",
-      "prompt": "Draft a save email for accounts that downgraded from Pro to Free.",
-      "description": "No guilt tactics, no fake scarcity. Offer a genuine option (pause / downgrade further / concierge help / refund). Tone matches your voice.",
-      "outcome": "Save email at saves/{persona-or-account}.md — one version you can send or adapt.",
-      "skill": "draft-churn-save"
+      "prompt": "Draft a save email for accounts that downgraded in Stripe.",
+      "description": "Pull the downgrade signal from Stripe. No guilt tactics, no fake scarcity. Offer a genuine option (pause / downgrade further / concierge help / refund).",
+      "outcome": "Save email at saves/{persona}.md — one version you can send or adapt.",
+      "skill": "draft-churn-save",
+      "tool": "Stripe"
     },
     {
       "category": "Announcements",
       "title": "Product announcement: email + in-app, coordinated",
       "prompt": "Plan the email + in-app announcement for {feature}.",
-      "description": "I draft the announcement email AND the matching in-app copy (banner / modal / empty-state nudge), keyed to the Head of Marketing's launch plan if one exists.",
+      "description": "Announcement email AND matching in-app copy (banner / modal / empty-state nudge), keyed to the Head of Marketing's launch plan if one exists.",
       "outcome": "A full announcement set at announcements/{feature-slug}.md — email body + in-app strings together.",
       "skill": "plan-product-announcement"
     }
