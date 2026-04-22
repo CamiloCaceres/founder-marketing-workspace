@@ -52,10 +52,11 @@ agents/{agent-id}/
   "useCases": [
     {
       "category": "{Group label — e.g. Launches, Audits, CRO}",
-      "title": "{short display title, opinionated verb phrase}",
-      "prompt": "{exact ready-to-send text with {placeholders}}",
-      "description": "{1–2 sentences: what the agent does when you send this}",
-      "outcome": "{what the user walks away with — concrete path/artifact}",
+      "title": "{short display title, opinionated verb phrase — the ONLY text shown on the Overview dashboard}",
+      "prompt": "{short, human ready-to-send text with {placeholders} — shown in Job Description, used as clipboard fallback}",
+      "fullPrompt": "{3–8 line rich prompt copied to clipboard from the Overview dashboard — states goal, inputs, deliverable, constraints}",
+      "description": "{1–2 sentences: what the agent does when you send this — shown in Job Description only}",
+      "outcome": "{what the user walks away with — concrete path/artifact — revealed on row hover in Overview}",
       "skill": "{skill-id this use case primarily invokes}"
     }
   ]
@@ -81,34 +82,56 @@ agents/{agent-id}/
 
 ### `useCases` — the founder-facing prompt menu
 
-Every role agent SHOULD declare 5–10 use cases. These render in Job
-Description → Use Cases as click-to-copy cards, grouped by `category`.
-Users learn what the agent can do by seeing opinionated examples, not
-by reading skill descriptions.
+Every role agent SHOULD declare 5–10 use cases. These drive two
+surfaces with different densities:
+
+- **Overview tab** (`bundle.js`) is the founder's first-run menu: the
+  first use case renders as a featured "Start here" mission, the rest
+  as a compact one-line list grouped by `category`. The row shows ONLY
+  `title`; hover reveals `outcome`. Clicking copies `fullPrompt` (or
+  `prompt` if `fullPrompt` is absent) to the clipboard.
+- **Job Description → Use Cases** shows the full record for each use
+  case — `title`, `description`, `prompt`, `outcome`, `skill`, `tool`.
 
 **Writing rules (important — bad use cases are worse than none):**
 
 1. **Be concrete, not generic.** ❌ "Analyze my marketing." ✅
    "Give me the weekly funnel readout — where are we leaking?"
 2. **Lead the `title` with a verb + outcome.** ❌ "Launch planning
-   skill." ✅ "Sequence a 2-week launch across every agent."
-3. **`prompt` is what the user types.** Use natural phrasing with
-   `{placeholders}` they'll fill in — not imperative robot-speak.
-4. **`description` is 1–2 sentences, no marketing words.** Describe
+   skill." ✅ "Sequence a 2-week launch across every agent." The
+   `title` is the only text shown on the Overview dashboard — it must
+   stand on its own as a one-line CTA.
+3. **`prompt` is what the user types.** Short, human, uses
+   `{placeholders}` they'll fill in — not imperative robot-speak. This
+   is the fallback clipboard payload when `fullPrompt` is absent, and
+   it's what renders in the Job Description tab's raw view.
+4. **`fullPrompt` is the richer payload copied from the Overview
+   dashboard.** Optional but recommended. 3–8 lines of natural-language
+   instruction: state the goal, name the inputs the founder should fill
+   (`{placeholders}` preserved), the shape of the deliverable, and any
+   non-obvious constraint (e.g. "don't invent ad angles — ground every
+   headline in a pulled quote"). Reference the target skill/tooling in
+   plain language where it helps routing ("Use the `critique-landing-page`
+   skill; fetch via Firecrawl."). Never invented by the founder — the
+   Overview card is clean because `fullPrompt` carries the context.
+5. **`description` is 1–2 sentences, no marketing words.** Describe
    what the agent actually does step-by-step. "Crawls X, extracts Y,
-   writes Z."
-5. **`outcome` is concrete.** Name the file path and what the user
+   writes Z." Only visible in Job Description.
+6. **`outcome` is concrete.** Name the file path and what the user
    does with it. "A brief at `research/{slug}.md` you can forward to
-   any other agent."
-6. **Group by `category`.** 2–4 categories per agent. Examples:
+   any other agent." Revealed on row hover in Overview.
+7. **Group by `category`.** 2–4 categories per agent. Examples:
    `Foundation / Competitive / Launches / Research / Reviews` for
    HoM; `Audits / Strategy / Content / Repurposing / Backlinks` for
    SEO. Categories are free-form strings but stay short (1–2 words).
-7. **One skill per use case.** `skill` points to the SKILL.md that
+8. **One skill per use case.** `skill` points to the SKILL.md that
    answers this prompt. If two prompts invoke the same skill with
    different framing (e.g. "single-competitor teardown" vs "N-competitor
    weekly digest"), that's fine — two use cases, one skill.
-8. **No fluff.** If you can cut an adjective, cut it.
+9. **Order matters on Overview.** `useCases[0]` becomes the featured
+   "Start here" mission — put the highest-value first action there.
+   The rest render in declaration order inside their category groups.
+10. **No fluff.** If you can cut an adjective, cut it.
 
 ## `CLAUDE.md` template (50-100 lines)
 
@@ -200,9 +223,13 @@ interface Output {
 **Don't author `bundle.js` directly.** Every agent's `bundle.js` is
 generated from `scripts/bundle_template.js` + that agent's
 `houston.json` by `scripts/generate_bundles.py`. The bundle renders
-the agent's `useCases` as a card grid — the primary
-"what-can-this-agent-do" surface. No stats, no activity feed, no
-quick prompts.
+the agent's `useCases` as an editorial first-action menu: a slim
+sticky header, `useCases[0]` as a featured "Start here" mission with a
+prominent accent CTA, then the rest as a compact list grouped by
+`category`. Each row shows only the `title`; hover reveals the
+`outcome`; click copies `fullPrompt` (or `prompt` as fallback) to
+clipboard. No gradient cards, no visible prompt text, no stats, no
+activity feed.
 
 **The only per-agent inputs:**
 
