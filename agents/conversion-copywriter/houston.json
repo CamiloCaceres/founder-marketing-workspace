@@ -1,0 +1,143 @@
+{
+  "id": "conversion-copywriter",
+  "name": "Conversion Copywriter",
+  "description": "Your page-level copy + surface CRO hire. I rewrite landing / pricing / about pages, draft headline and CTA variants grounded in real customer quotes, tighten existing copy in your voice, and optimize the surfaces that leak conversion — forms, signup flows, in-app onboarding, upgrade paywalls, popups.",
+  "icon": "PenTool",
+  "category": "business",
+  "author": "Houston Founder Marketing",
+  "tags": [
+    "marketing",
+    "solo-founder",
+    "copywriting",
+    "cro",
+    "conversion",
+    "landing-page"
+  ],
+  "tabs": [
+    {
+      "id": "overview",
+      "label": "Overview",
+      "customComponent": "Dashboard"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "builtIn": "board",
+      "badge": "activity"
+    },
+    {
+      "id": "job-description",
+      "label": "Job Description",
+      "builtIn": "job-description"
+    },
+    {
+      "id": "files",
+      "label": "Files",
+      "builtIn": "files"
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "builtIn": "integrations"
+    }
+  ],
+  "defaultTab": "overview",
+  "agentSeeds": {
+    "outputs.json": "[]",
+    ".houston/activity.json": "[{\"id\":\"2a221670-512f-42fe-98ff-040b93cdaf4d\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: 1) your primary page + conversion event  2) your voice (how you sound in writing)  3) which surface is leaking (page / signup flow / onboarding / paywall / popup / form). Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste. After this I can rewrite pages, draft headline + CTA variants, and audit your leakiest surface.\",\"status\":\"needs_you\"}]"
+  },
+  "useCases": [
+    {
+      "category": "Copy",
+      "title": "Rewrite the homepage in my voice",
+      "blurb": "Hero, social proof, value props, CTA — the whole page.",
+      "prompt": "Rewrite my homepage at {url} — hero, subhead, value props, CTA — in my voice.",
+      "fullPrompt": "Rewrite my homepage at {url}. Use the write-page-copy skill. Before drafting, read the positioning doc and config/voice.md (ask for voice samples if missing). Fetch the current page via any Composio-connected scraper so we're editing real text, not guessing. Produce: 3 headline + subhead pairs, the recommended hero, value-prop section (3-5 benefits tied to ICP pains), social proof slot, objection section, and primary CTA. Each recommended line pairs Current → Proposed → Why (one line). Save to page-copy/homepage-{YYYY-MM-DD}.md and log in outputs.json. Flag anything that contradicts the positioning doc.",
+      "description": "Fetch the current page, then draft hero + subhead + value props + CTA in your voice. Every recommended change pairs Current → Proposed → Why. Nothing invented — quotes cite the positioning doc or customer evidence.",
+      "outcome": "Page rewrite at page-copy/{page-slug}-{YYYY-MM-DD}.md — paste into your CMS once you approve.",
+      "skill": "write-page-copy",
+      "tool": "Firecrawl"
+    },
+    {
+      "category": "Copy",
+      "title": "10 headline variants, each cites the quote behind it",
+      "blurb": "No marketer-speak. Real customer language only.",
+      "prompt": "Give me 10 headline variants for my {page}. Cite the quote or review behind each.",
+      "fullPrompt": "Draft 10 headline variants for my {page — e.g. homepage, pricing page, landing page for {campaign}}. Use the write-headline-variants skill. Pull evidence in priority: (a) ../head-of-marketing/call-insights/ if present, (b) ../head-of-marketing/research/, (c) review-scrape via any Composio-connected review tool (G2 / Capterra / Trustpilot / Reddit / App Store). Every headline cites the verbatim quote, review, or positioning-doc line behind it — no marketer-speak. Include 2-3 subhead options per top headline. Rank the top 3 to test first and why. Save to headline-variants/{page-slug}-{YYYY-MM-DD}.md and log in outputs.json.",
+      "description": "Pull quotes from sales calls, research, or Composio-connected review sites. Every headline names its source. Ranked top 3 to test first.",
+      "outcome": "Variants at headline-variants/{page-slug}-{YYYY-MM-DD}.md with the source quote next to each line.",
+      "skill": "write-headline-variants",
+      "tool": "G2"
+    },
+    {
+      "category": "Copy",
+      "title": "Polish existing copy without rewriting it",
+      "blurb": "Tighter, clearer, still sounds like you.",
+      "prompt": "Edit the copy on my {page} — tighten, clarify, keep my voice. Paste or link.",
+      "fullPrompt": "Edit the copy on my {page or section}. Paste the current copy or share the URL. Use the edit-copy skill. Read config/voice.md so edits stay in my voice — don't rewrite into chatbot-speak. Run a focused multi-sweep pass (clarity, voice, specificity, length, CTAs). Mark each edit Current → Proposed → Why (one line). Do NOT change the core message; enhance it. Flag any line that contradicts the positioning doc. Save to copy-edits/{page-slug}-{YYYY-MM-DD}.md and log in outputs.json.",
+      "description": "Multi-sweep edit of existing copy — clarity, voice, specificity, length, CTAs. Every change paired Current → Proposed → Why. Core message preserved.",
+      "outcome": "Edit pass at copy-edits/{page-slug}-{YYYY-MM-DD}.md. Paste approved lines into your CMS.",
+      "skill": "edit-copy"
+    },
+    {
+      "category": "Copy",
+      "title": "CTA variants paired with the objection they answer",
+      "blurb": "5-7 button lines, each killing a hesitation.",
+      "prompt": "Give me CTA variants for the {button} on my {page}. Pair each with the objection it answers.",
+      "fullPrompt": "Draft 5-7 CTA variants for the {button — e.g. primary CTA, pricing-page CTA, signup button} on my {page}. Use the write-cta-variants skill. Read the positioning doc for objections + JTBD. Each variant names the objection or hesitation it answers and the implied outcome. Keep the strongest verb; never 'Submit' / 'Click Here' / 'Learn More'. Rank the top 2 to test first and why. Save to cta-variants/{page-slug}-{YYYY-MM-DD}.md and log in outputs.json.",
+      "description": "5-7 CTA variants. Each line ties to a specific objection from the positioning doc and names the outcome. Top 2 ranked to test.",
+      "outcome": "CTAs at cta-variants/{page-slug}-{YYYY-MM-DD}.md. Ship the winner once picked.",
+      "skill": "write-cta-variants"
+    },
+    {
+      "category": "Surfaces",
+      "title": "Audit a form and kill the friction",
+      "blurb": "Fields cut, labels rewritten, completion lift.",
+      "prompt": "Audit my {lead / contact / demo / checkout} form. Tell me which fields to cut and rewrite the labels.",
+      "fullPrompt": "Audit my {form type — lead capture / contact / demo request / checkout / application} at {url or paste the fields}. Use the optimize-form skill. Fetch the form via any Composio-connected scraper if it's on a page; otherwise work from the pasted field list. For each field: keep / drop / defer to post-submit. Rewrite labels in plain language (one question per field). Name the friction causes (cognitive load, privacy anxiety, missing value prop above form). Flag compliance-required fields. Save to form-audits/{form-slug}-{YYYY-MM-DD}.md and log in outputs.json. Prioritize the top 3 changes to ship this week.",
+      "description": "Field-by-field audit. Which to cut, which to keep, label rewrites in plain language, friction causes named. Top 3 changes ranked.",
+      "outcome": "Audit at form-audits/{form-slug}-{YYYY-MM-DD}.md. Ship the top 3 this week.",
+      "skill": "optimize-form"
+    },
+    {
+      "category": "Surfaces",
+      "title": "Fix the signup flow — step count + copy + objections",
+      "blurb": "Where they drop, and the copy that stops it.",
+      "prompt": "Review my signup flow at {url or describe the steps}. Tell me where to cut steps and what copy to rewrite.",
+      "fullPrompt": "Review my signup / registration / trial activation flow. Share {url + steps} or describe each screen. Use the optimize-signup-flow skill. Fetch each step via any Composio-connected rendering tool if URLs are provided. For each step: necessity, friction sources, copy rewrites (headline / microcopy / error states / CTA), drop triggers a user might hit. Recommend which steps to merge, defer post-signup, or kill. Re-write the full flow copy top-to-bottom so I can ship it. Save to signup-flow-reviews/{flow-slug}-{YYYY-MM-DD}.md and log in outputs.json.",
+      "description": "Step-by-step review. Cut, merge, or defer each step. Rewrite headline + microcopy + error states. Full replacement flow copy included.",
+      "outcome": "Review at signup-flow-reviews/{flow-slug}-{YYYY-MM-DD}.md. Hand to eng + copy together.",
+      "skill": "optimize-signup-flow"
+    },
+    {
+      "category": "Surfaces",
+      "title": "Rewrite the in-app onboarding — welcome, empty states, aha",
+      "blurb": "First-run copy that gets them to value, fast.",
+      "prompt": "Rewrite the in-app onboarding copy for {product}. Welcome screen, empty states, checklist, aha-moment.",
+      "fullPrompt": "Rewrite the in-app onboarding copy for {product}. Use the optimize-onboarding-copy skill. Ask for screenshots, a Loom, or a field dump of the current first-run experience. Read the positioning doc for the aha moment we're driving toward. Produce copy for: welcome screen (value + next action), the 3-5 empty states (feature-area by feature-area), onboarding checklist lines, tooltips, the aha-moment confirmation. Every line pairs Current → Proposed → Why. Save to onboarding-copy/{product-slug}-{YYYY-MM-DD}.md and log in outputs.json. This is in-product, not email — email sequences belong to Lifecycle & Email.",
+      "description": "Welcome screen, empty states, onboarding checklist, tooltips, aha-moment copy. Every line paired Current → Proposed → Why.",
+      "outcome": "Copy at onboarding-copy/{product-slug}-{YYYY-MM-DD}.md. Hand to your eng + product team.",
+      "skill": "optimize-onboarding-copy"
+    },
+    {
+      "category": "Surfaces",
+      "title": "Audit the upgrade paywall — free-to-paid conversion",
+      "blurb": "Plan comparison, urgency, in-product upgrade copy.",
+      "prompt": "Audit my upgrade paywall / pricing modal / trial-expiration screen. Rewrite it.",
+      "fullPrompt": "Audit my upgrade paywall / pricing modal / trial-expiration screen. Share {url or screenshots + current copy}. Use the optimize-paywall-upgrade skill. Fetch via any Composio-connected rendering tool if applicable. Cover: timing (is it shown after value delivered?), plan-comparison clarity, objection handling (price / commitment / cancel policy), social proof placement, CTA copy, dismissal pattern. Every change paired Current → Proposed → Why. Save to paywall-audits/{surface-slug}-{YYYY-MM-DD}.md and log in outputs.json. Flag if the paywall fires before value is delivered — that's the biggest killer.",
+      "description": "Audit of the in-product upgrade moment. Timing, plan comparison, objections, social proof, CTA, dismissal pattern. Each change paired.",
+      "outcome": "Audit at paywall-audits/{surface-slug}-{YYYY-MM-DD}.md. Ship the rewrites with eng.",
+      "skill": "optimize-paywall-upgrade"
+    },
+    {
+      "category": "Surfaces",
+      "title": "Spec a popup / modal / banner that doesn't annoy",
+      "blurb": "Trigger, copy, dismissal — a real spec.",
+      "prompt": "Spec a {exit / scroll / timed / banner} popup for {goal} on my {page}.",
+      "fullPrompt": "Spec a popup / modal / slide-in / sticky-bar for {goal — e.g. lead capture, announcement, cart-abandon save} on my {page}. Use the optimize-popup skill. Read the positioning doc + config/voice.md. Output a full spec: trigger logic (exit-intent / scroll % / time / behavioral), targeting rules (page, session, returning vs new), headline + subhead + form (if any) + CTA + dismissal copy, frequency cap, and the success metric. Ground the copy in a real quote or review line — name the source. Save to popup-specs/{goal-slug}-{YYYY-MM-DD}.md and log in outputs.json. Never recommend an interrupt pattern that fires before 10s or within 20% scroll — the user hasn't earned the ask yet.",
+      "description": "Full popup spec — trigger, targeting, headline + subhead + CTA, dismissal, frequency cap, success metric. Copy grounded in real quotes.",
+      "outcome": "Spec at popup-specs/{goal-slug}-{YYYY-MM-DD}.md. Drop into your popup tool of choice.",
+      "skill": "optimize-popup"
+    }
+  ]
+}

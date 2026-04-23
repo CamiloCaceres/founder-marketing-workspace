@@ -1,5 +1,5 @@
 {
   "name": "Founder Marketing Workspace",
-  "description": "Five AI marketing hires for solo founders — a Head of Marketing, SEO & Content, Growth & Paid, Lifecycle & Email, and Social & Community agent. Chat-first, markdown-output, shared positioning doc.",
-  "agents": ["head-of-marketing", "seo-content", "growth-paid", "lifecycle-email", "social-community"]
+  "description": "Six AI marketing hires for solo founders — a Head of Marketing, SEO & Content, Growth & Paid, Lifecycle & Email, Social & Community, and Conversion Copywriter. Chat-first, markdown-output, shared positioning doc.",
+  "agents": ["head-of-marketing", "seo-content", "growth-paid", "lifecycle-email", "social-community", "conversion-copywriter"]
 }

@@ -16,6 +16,7 @@ ACCENTS = {
     "growth-paid": "amber",
     "lifecycle-email": "sky",
     "social-community": "rose",
+    "conversion-copywriter": "violet",
 }
 
 TAGLINES = {
@@ -24,6 +25,7 @@ TAGLINES = {
     "growth-paid": "Paid campaigns, landing-page CRO, experiments, the weekly funnel review. I never spend a dollar without your approval.",
     "lifecycle-email": "Welcome series, newsletters, drips, churn-save, product announcements. Drafts only — I never send.",
     "social-community": "LinkedIn posts, X threads, Reddit replies, your weekly social calendar and podcast pitches. Drafts only — I never post.",
+    "conversion-copywriter": "Page copy, headline + CTA variants, form / signup / onboarding / paywall / popup CRO. I rewrite surfaces that leak — you ship.",
 }
 
 
