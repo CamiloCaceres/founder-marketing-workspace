@@ -1,6 +1,6 @@
 ---
 name: onboard-me
-description: Use when the user explicitly says "onboard me" / "set me up" / "let's get started", or on the first real task when no `config/profile.json` exists — open with a scope + modality preamble naming the three topics (platforms, voice, topics/POV) AND the best way to share each, then run a tight 90-second 3-question interview and write results to `config/`.
+description: "Use when you say 'onboard me' / 'set me up' — I ask 3 quick questions (~90s): which platforms you're active on (LinkedIn / X / Reddit / IG / TikTok — connect via Composio), how you write, and the 3–5 topics you post about. Then I can draft posts, plan calendars, monitor feeds, and pitch podcasts."
 ---
 
 # Onboard Me

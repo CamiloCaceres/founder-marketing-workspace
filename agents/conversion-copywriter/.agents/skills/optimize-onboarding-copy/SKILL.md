@@ -1,6 +1,6 @@
 ---
 name: optimize-onboarding-copy
-description: Use when the user says "in-app onboarding copy" / "empty states" / "first-run messaging" / "welcome screen text" — rewrites the in-product copy that runs from welcome screen to aha-moment: welcome, empty states, onboarding checklist, tooltips, aha-moment confirmation. Every line paired Current → Proposed → Why. In-product only — email sequences go to Lifecycle & Email.
+description: "Use when you say 'in-app onboarding copy' / 'empty states' / 'first-run messaging' — I rewrite empty states, tooltips, nudges, and welcome modals inside the product. Every string ties to an activation event you care about. Writes to `onboarding-copy/{slug}.md`."
 ---
 
 # Optimize Onboarding Copy

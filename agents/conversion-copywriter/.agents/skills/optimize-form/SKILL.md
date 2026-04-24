@@ -1,6 +1,6 @@
 ---
 name: optimize-form
-description: Use when the user says "audit my form" / "too many fields" / "lead / contact / demo / checkout form isn't converting" — field-by-field audit of non-signup forms (lead capture, contact, demo request, checkout, application). Each field gets keep / drop / defer. Labels rewritten in plain language. Top 3 changes ranked.
+description: "Use when you say 'audit my form' / 'too many fields' / 'demo form isn't converting' — I review a form (demo / contact / lead), flag unnecessary fields, rewrite labels + helper text, and sequence fields by friction. Writes to `form-audits/{form-slug}.md`. For signup flows, see `optimize-signup-flow`."
 ---
 
 # Optimize Form

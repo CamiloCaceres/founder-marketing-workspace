@@ -1,6 +1,6 @@
 ---
 name: design-lifecycle-campaign
-description: Use when the user says "design a drip" / "re-activation campaign" / "lifecycle for {segment}" — builds an event-triggered drip with the trigger (from `config/journey.json`), frequency rules, branching by user action (opened / clicked / converted / silent), and each email drafted in the user's voice.
+description: "Use when you say 'design a drip' / 're-activation campaign' / 'lifecycle for {segment}' — I build an event-triggered drip with trigger event, frequency rules, branching by user action, and drafted copy per email. Honest about when to stop emailing. Writes to `drips/{slug}.md` with every branch labeled."
 ---
 
 # Design Lifecycle Campaign

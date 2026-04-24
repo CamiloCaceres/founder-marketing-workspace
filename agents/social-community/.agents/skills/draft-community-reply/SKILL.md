@@ -1,6 +1,6 @@
 ---
 name: draft-community-reply
-description: Use when the user says "draft a Reddit reply" / "respond to {thread URL}" / "community reply" — pulls the source thread via Composio web-scrape, drafts a value-first reply (helpful first, link last or not at all) grounded in the positioning doc and the user's voice; never pitchy, always a draft.
+description: "Use when you say 'draft a Reddit reply to {URL}' / 'respond to this thread' / 'community reply' — I pull the source thread (via Composio / Firecrawl) and draft a value-first reply. Helpful first, link only if it truly belongs. Writes to `community-replies/{source-slug}.md`."
 ---
 
 # Draft Community Reply

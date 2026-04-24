@@ -1,6 +1,6 @@
 ---
 name: edit-copy
-description: Use when the user says "edit this copy" / "tighten this" / "polish my about page" / "this reads awkward — fix it" — runs a multi-sweep edit pass (clarity, voice, specificity, length, CTAs) on existing copy, preserving the core message. Every change is paired Current → Proposed → Why in one line.
+description: "Use when you say 'edit this' / 'tighten' / 'polish my about page' / 'this reads awkward' — I tighten existing copy in your voice: cut adjectives, remove marketer-speak, add specificity, fix rhythm. Preserves intent. Writes an edited version to `copy-edits/{slug}.md` with before/after notes."
 ---
 
 # Edit Copy

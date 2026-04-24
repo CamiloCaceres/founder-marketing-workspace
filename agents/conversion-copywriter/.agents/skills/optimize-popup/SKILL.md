@@ -1,6 +1,6 @@
 ---
 name: optimize-popup
-description: Use when the user says "exit popup" / "modal copy" / "lead-capture popup" / "announcement banner" / "sticky bar" — specs a popup, modal, slide-in, or banner. Full spec: trigger logic, targeting rules, headline + subhead + CTA, dismissal copy, frequency cap, success metric. Copy grounded in real customer quotes — never invented.
+description: "Use when you say 'exit popup' / 'modal copy' / 'lead-capture popup' / 'announcement banner' — I write popup copy (hook, offer, dismiss/accept CTAs) tied to a trigger (scroll, exit, time-on-page) with targeting recommendations. Writes to `popup-specs/{slug}.md`."
 ---
 
 # Optimize Popup

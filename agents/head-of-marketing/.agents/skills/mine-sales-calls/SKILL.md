@@ -1,6 +1,6 @@
 ---
 name: mine-sales-calls
-description: Use when the user says "mine my sales calls" / "what are customers saying" / "extract objections from my calls" — pulls recent call transcripts via a Composio-connected meeting-notes app (or user-pasted transcript) and extracts verbatim customer language, pains, objections, and positioning signals.
+description: "Use when you say 'mine my sales calls' / 'extract objections from my calls' — I pull transcripts from your connected meeting app (Gong / Fireflies / Circleback), extract verbatim customer phrases, rank pains by frequency, surface objection patterns, and flag positioning wedges. Writes to `call-insights/{date}.md` — the single best source for ad copy and landing-page headlines."
 ---
 
 # Mine Sales Calls

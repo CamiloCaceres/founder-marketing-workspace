@@ -1,6 +1,6 @@
 ---
 name: draft-churn-save
-description: Use when the user says "save email for {account}" / "churn-save" / "cancel-flow email" — drafts a save email that avoids defensive language, offers a genuine option (pause / downgrade / concierge help / refund), and never uses guilt, fake scarcity, or dark patterns.
+description: "Use when you say 'save email for {account}' / 'churn-save' / 'cancel-flow email' — I draft a save email that avoids guilt tactics and fake scarcity, offering a genuine option (pause / downgrade further / concierge help / refund). Tone matches your voice. Writes to `saves/{persona}.md`."
 ---
 
 # Draft Churn-Save

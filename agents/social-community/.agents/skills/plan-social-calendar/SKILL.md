@@ -1,6 +1,6 @@
 ---
 name: plan-social-calendar
-description: Use when the user says "plan this week's social" / "social calendar" / "content for next week" — builds a Mon-Fri (or user-specified range) plan across LinkedIn / X / Reddit / IG / TikTok, keyed to topics in `config/topics.json`, mixing original posts, repurposed content from the SEO agent, community replies, and engagement blocks; appends the week to the living `social-calendar.md` and writes full per-week detail.
+description: "Use when you say 'plan this week's social' / 'social calendar' / 'content for next week' — I build a Mon–Fri plan per platform (LinkedIn / X / Reddit), keyed to your topics, mixing original posts with repurposed content from the SEO agent's outputs (zero duplicate angles). Writes to `social-calendars/{YYYY-WNN}.md` + appends to a living `social-calendar.md`."
 ---
 
 # Plan Social Calendar

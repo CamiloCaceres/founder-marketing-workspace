@@ -1,6 +1,6 @@
 ---
 name: pitch-podcast
-description: Use when the user says "pitch me onto podcasts" / "podcast outreach" / "find shows for our ICP" — identifies target podcasts (host, show, audience fit) via a podcast directory, then drafts per-show pitch emails (hook grounded in positioning, angle, proof, ask); drafts only, never sent.
+description: "Use when you say 'pitch me onto podcasts' / 'podcast outreach' / 'find shows for our ICP' — I identify target shows by audience fit (via Listen Notes or similar) and draft per-show pitches: hook based on your positioning, angle, proof, clear ask. No template spam. Writes to `podcast-pitches/{date}.md` — one per show, send from your own email."
 ---
 
 # Pitch Podcast

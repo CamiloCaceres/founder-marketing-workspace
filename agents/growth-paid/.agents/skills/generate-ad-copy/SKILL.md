@@ -1,6 +1,6 @@
 ---
 name: generate-ad-copy
-description: Use when the user says "draft ad copy" / "write ad variants for {product}" / "give me 10 ad headlines" — generates headlines, descriptions, and CTAs grounded in REAL customer language pulled from `../head-of-marketing/call-insights/` if present, or from competitor reviews via Composio review-scrape. Never invents phrases; every line ties to a quote.
+description: "Use when you say 'draft ad copy' / 'write ad variants' / 'give me 10 ad headlines' — I pull phrases from your call insights (or G2 / Capterra / Trustpilot reviews via scrape) and write headlines + descriptions that sound like your customers talking — not a marketer pitching. Writes to `ad-copy/{campaign}.md` with the source quote alongside each headline."
 ---
 
 # Generate Ad Copy

@@ -1,6 +1,6 @@
 ---
 name: monitor-competitor-ads
-description: Use when the user says "what ads is {competitor} running" / "competitor ad teardown" / "watch competitor creative" — pulls live ads from Meta Ad Library, LinkedIn Ad Library, and Google Ads Transparency Center (via Composio ad-intel or web-scrape), extracts the angles / messaging / creative patterns, and writes a dated teardown.
+description: "Use when you say 'what ads is {competitor} running' / 'competitor ad teardown' — I pull live creative from Meta Ad Library, LinkedIn Ad Library, and Google Ads Transparency (via Composio scrape), then extract the angles, hooks, and offers they're testing. Writes to `competitor-ads/{competitor}-{date}.md` — the best research for your own ad copy."
 ---
 
 # Monitor Competitor Ads

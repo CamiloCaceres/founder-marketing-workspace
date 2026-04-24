@@ -1,6 +1,6 @@
 ---
 name: draft-linkedin-post
-description: Use when the user says "draft a LinkedIn post" / "LinkedIn on {topic}" / "post about {idea}" — produces a LinkedIn-native post (hook in the first line, whitespace between lines, one clear takeaway, clear CTA or question) grounded in the shared positioning doc and the user's voice, written as a draft the user reviews before posting.
+description: "Use when you say 'draft a LinkedIn post about {topic}' / 'post about {idea}' — I write a LinkedIn-native post with a hook in the first line, whitespace, one clear takeaway, and a CTA or question to spark replies. Uses your saved voice samples so it doesn't sound like AI. Writes to `posts/linkedin-{slug}.md` — paste into LinkedIn when you're ready."
 ---
 
 # Draft LinkedIn Post

@@ -1,6 +1,6 @@
 ---
 name: onboard-me
-description: Use when the user explicitly says "onboard me" / "set me up" / "let's get started", or on the first real task when no `config/profile.json` exists — open with a scope + modality preamble naming the three topics (domain, existing content, SEO tooling) AND the best way to share each, then run a tight 90-second 3-question interview and write results to `config/`.
+description: "Use when you say 'onboard me' / 'set me up', or on the first task before `config/` exists — I ask 3 quick questions (~90s): your domain, your existing content (connected CMS or top post URLs), and which SEO tools you've connected via Composio. Then I can audit, rank, and draft."
 ---
 
 # Onboard Me

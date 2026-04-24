@@ -1,6 +1,6 @@
 ---
 name: profile-icp
-description: Use when the user says "profile our ICP" / "build a persona for {segment}" / "help me nail the buyer persona" — produces a detailed persona doc with pains, jobs-to-be-done, triggers, anchor accounts, objection patterns, and buying process.
+description: "Use when you say 'profile our ICP' / 'build a persona for {segment}' — I pull top closed-won accounts from a connected CRM (HubSpot / Attio) or infer from paste, then synthesize a persona with jobs-to-be-done, pains ranked by frequency, triggers, objection patterns, and 1–2 anchor accounts. Writes to `personas/{slug}.md` — ad copy and landing-page headlines pull from here."
 ---
 
 # Profile ICP

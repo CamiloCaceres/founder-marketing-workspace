@@ -1,6 +1,6 @@
 ---
 name: audit-site-seo
-description: Use when the user says "run an SEO audit" / "audit {domain}" / "how's our SEO" — runs an on-page + technical + content audit of the configured site (or a passed domain) via Composio-connected SEO tools, writes a dated markdown report under `seo-audits/`, and appends an entry to `outputs.json`.
+description: "Use when you say 'run an SEO audit' / 'audit {domain}' / 'how's our SEO' — I run a full on-page + technical audit via your connected Semrush (or Ahrefs / Firecrawl fallback), rank issues by impact × ease, and give you 10 prioritized fixes you can ship this week. Writes to `seo-audits/{domain}-{date}.md` — a fix list, not a wall of warnings."
 ---
 
 # Audit Site SEO

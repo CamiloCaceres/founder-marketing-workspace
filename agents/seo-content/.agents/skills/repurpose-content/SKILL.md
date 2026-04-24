@@ -1,6 +1,6 @@
 ---
 name: repurpose-content
-description: Use when the user says "turn {X} into {Y}" / "repurpose this blog post" / "make LinkedIn posts from {YouTube URL}" — takes any source (blog URL, YouTube URL, article paste, competitor post URL) and produces the requested target format (LinkedIn posts / X thread / newsletter / blog draft / shareable insights), written to `repurposed/{source-slug}-to-{target}.md`.
+description: "Use when you say 'turn {X} into {Y}' / 'repurpose this blog' / 'YouTube → blog draft' — I take any source (blog URL, YouTube transcript, article paste, competitor post) and reshape it for a target format (5 LinkedIn posts, an X thread, a newsletter, a blog draft, shareable insights). Writes to `repurposed/{source}-to-{target}.md` — hand to Social or Lifecycle to ship."
 ---
 
 # Repurpose Content

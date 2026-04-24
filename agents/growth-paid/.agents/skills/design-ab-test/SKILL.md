@@ -1,6 +1,6 @@
 ---
 name: design-ab-test
-description: Use when the user says "A/B test for {page}" / "design an experiment" / "hypothesis for {change}" — produces a test doc with PICOT hypothesis, control vs variant, primary and secondary metrics, sample-size estimate (with MDE + power calc explanation), duration, and go/no-go criteria.
+description: "Use when you say 'A/B test for {page}' / 'design an experiment' / 'hypothesis for {change}' — I write a full test spec covering hypothesis (PICOT), control vs variant, primary + secondary metrics, sample-size estimate with MDE + power, duration, and go/no-go criteria. Writes to `ab-tests/{slug}.md` — so you don't ship the loser."
 ---
 
 # Design A/B Test

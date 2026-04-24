@@ -1,6 +1,6 @@
 ---
 name: monitor-social-feed
-description: Use when the user says "scan my timeline" / "what's worth engaging with" / "Reddit signal" / "IG mentions" — pulls timeline / subreddit / mentions via Composio, surfaces the posts worth responding to (relevance to our topics + engagement opportunity) with suggested replies, drafts only.
+description: "Use when you say 'scan my timeline' / 'what's worth engaging with' / 'Reddit signal' / 'IG mentions' — I filter your feed for relevance to your topics and engagement opportunities, then suggest concrete replies. No more doom-scrolling for something to comment on. Writes to `feed-digests/{platform}-{date}.md` with reply drafts per opportunity."
 ---
 
 # Monitor Social Feed

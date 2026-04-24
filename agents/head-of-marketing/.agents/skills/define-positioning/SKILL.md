@@ -1,6 +1,6 @@
 ---
 name: define-positioning
-description: Use when the user says "help me write a positioning statement" / "draft my positioning" / "let's do positioning" — drafts or updates the shared `product-marketing-context.md` at the agent root, the single source of truth the other four marketing agents read.
+description: "Use when you say 'help me with positioning' / 'draft my positioning' — I interview you briefly and write the full positioning doc (ICP, category, differentiators, brand voice, pricing stance, primary CTA) to `product-marketing-context.md` at my root. That file is the source of truth the other marketing agents read before they work; until it exists they stop and ask for it."
 ---
 
 # Define Positioning

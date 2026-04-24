@@ -1,6 +1,6 @@
 ---
 name: draft-welcome-sequence
-description: Use when the user says "draft a welcome series" / "welcome emails for signups" / "onboarding sequence" — produces a 5-email welcome sequence (Day 0/1/3/7/14 default, user can override) with per-email subject, preview, body, CTA, and success metric, all grounded in the positioning doc and the user's voice.
+description: "Use when you say 'draft a welcome series' / 'onboarding emails for new signups' — I write a 5-email sequence (Day 0 / 1 / 3 / 7 / 14 default, override any cadence), each with subject, preview, body, CTA, and success metric. Formatted for your connected ESP (Customer.io / Mailchimp / ConvertKit / Beehiiv / etc.). Writes to `sequences/welcome-{variant}.md`."
 ---
 
 # Draft Welcome Sequence

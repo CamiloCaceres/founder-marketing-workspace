@@ -1,6 +1,6 @@
 ---
 name: optimize-signup-flow
-description: Use when the user says "signup flow review" / "reduce signup dropoff" / "registration friction" / "trial signup isn't working" — step-by-step review of signup / registration / trial activation. Each step: cut / merge / defer / keep. Rewrites headline + microcopy + error states. Produces full replacement flow copy.
+description: "Use when you say 'signup flow review' / 'signup dropoff' / 'trial signup isn't working' — I audit the whole signup funnel: pre-signup page, email field, password requirements, verification, first-screen post-signup. Copy + field-level recommendations. Writes to `signup-flow-reviews/{slug}.md`."
 ---
 
 # Optimize Signup Flow

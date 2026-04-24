@@ -1,6 +1,6 @@
 ---
 name: track-competitors
-description: Use when the user says "give me the weekly competitor pulse" / "what did {competitor} ship this week" / "teardown of {competitor}" — fetches recent competitor activity via Composio, compares against our positioning, and flags threats plus opportunities. Supports single-competitor teardowns and N-competitor weekly digests.
+description: "Use when you say 'weekly competitor pulse' / 'what did {competitor} ship' / 'teardown of {X}' — I scan each competitor's recent blog posts, product updates (via Firecrawl), ad activity (Meta / LinkedIn Ad Library), and social, filtering real threats from noise. Works as a single-competitor teardown or an N-competitor weekly digest. Writes to `competitor-briefs/{slug}.md`."
 ---
 
 # Track Competitors

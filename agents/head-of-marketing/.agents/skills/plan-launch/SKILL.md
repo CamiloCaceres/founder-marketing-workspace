@@ -1,6 +1,6 @@
 ---
 name: plan-launch
-description: Use when the user says "plan the launch of {feature}" / "help me prep the {feature} launch" / "we're launching {X}, coordinate" — produces a sequenced plan (pre-launch, launch day, post-launch) with specific tasks tagged for each of the other four marketing agents.
+description: "Use when you say 'plan the {feature} launch' / 'coordinate the launch' — I break a 2-week launch into pre-launch (7d out), launch day, and post-launch, tagging each task to the right agent (SEO drafts the post, Growth preps paid creative, Lifecycle writes the announcement, Social plans posts, Conversion Copywriter updates the landing page). Writes to `launches/{slug}.md` with owner + timing per task."
 ---
 
 # Plan Launch

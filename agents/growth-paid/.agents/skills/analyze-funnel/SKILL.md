@@ -1,6 +1,6 @@
 ---
 name: analyze-funnel
-description: Use when the user says "weekly funnel review" / "where are we leaking" / "analyze the signup funnel" — reads connected analytics via Composio (or a user paste of stage numbers), computes conversion at each stage, flags the biggest drop-off, and recommends experiments.
+description: "Use when you say 'weekly funnel readout' / 'where are we leaking' / 'analyze the signup funnel' — I compute conversion at each step (from your connected PostHog / GA4 / Mixpanel, or paste), flag the biggest drop, and recommend 2–3 experiments ranked by expected lift × effort. Writes to `funnel-reviews/{date}.md` — clear next actions, not a dashboard dump."
 ---
 
 # Analyze Funnel

@@ -1,6 +1,6 @@
 ---
 name: write-cta-variants
-description: Use when the user says "better CTA copy" / "CTA variants for {button}" / "signup button options" — produces 5-7 CTA button variants for the named surface, each paired with the specific objection it answers and the implied outcome. Top 2 ranked to test first.
+description: "Use when you say 'better CTA' / 'CTA variants for {button}' — I write CTA button copy variants, each paired with the objection it answers (e.g. 'Start free — no credit card required'). Grounded in pains from your call insights. Writes to `cta-variants/{page-slug}.md`."
 ---
 
 # Write CTA Variants

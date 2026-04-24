@@ -1,6 +1,6 @@
 ---
 name: review-marketing-health
-description: Use when the user says "Monday marketing review" / "how's marketing doing" / "give me the weekly readout" — aggregates across the workspace by reading each other marketing agent's `outputs.json`, summarizes what shipped this week, calls out gaps, and recommends next moves.
+description: "Use when you say 'Monday marketing review' / 'weekly readout' — I aggregate what each of the other agents produced this week (blog posts, campaigns, emails, social, page rewrites), flag gaps like 'Lifecycle hasn't shipped a drip in 3 weeks', and recommend next moves per agent. Writes to `reviews/{date}.md` — a 2-minute scan."
 ---
 
 # Review Marketing Health

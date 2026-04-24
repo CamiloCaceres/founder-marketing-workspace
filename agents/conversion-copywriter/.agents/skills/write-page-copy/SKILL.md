@@ -1,6 +1,6 @@
 ---
 name: write-page-copy
-description: Use when the user says "write copy for {page}" / "rewrite my homepage" / "draft the pricing page" / "headline + body for {landing page}" — fetches the current page via any Composio-connected scraper, then drafts hero + subhead + value props + social proof + objection + CTA in the user's voice, with every recommended change paired Current → Proposed → Why.
+description: "Use when you say 'write copy for {page}' / 'rewrite my homepage' / 'draft the pricing page' / 'headline + body for {landing page}' — I write full page copy grounded in your positioning and real customer language (from your call insights or G2 / Capterra reviews). Sections, headlines, bodies, CTAs, social-proof placement. Writes to `page-copy/{page-slug}.md`."
 ---
 
 # Write Page Copy

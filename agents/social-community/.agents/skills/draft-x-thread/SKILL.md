@@ -1,6 +1,6 @@
 ---
 name: draft-x-thread
-description: Use when the user says "X thread on {topic}" / "Twitter thread" / "draft a viral-shape thread" — produces a 5-12-tweet thread (hook tweet, numbered progression through the argument, CTA tweet) grounded in the positioning doc and the user's voice; always a draft, never posted.
+description: "Use when you say 'X thread on {topic}' / 'Twitter thread' / 'draft a viral-shape thread' — I write a 5–12-tweet thread with a hook tweet, numbered progression, and a CTA tweet at the end. Each tweet fits the 280-char budget with room for edits. Writes to `threads/x-{slug}.md` — copy tweet-by-tweet into your scheduler."
 ---
 
 # Draft X Thread

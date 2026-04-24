@@ -1,6 +1,6 @@
 ---
 name: plan-paid-campaign
-description: Use when the user says "plan a paid campaign" / "Google Ads for {keyword cluster}" / "should we run ads on {channel}" — produces a full campaign brief (audience, keyword/placement strategy, budget plan, ad-group structure, creative angles, landing-page requirement, KPI targets) grounded in the positioning doc and whatever channel data is available via Composio.
+description: "Use when you say 'plan a paid campaign' / 'Google Ads for {keyword}' / 'should we run ads on {channel}' — I produce a full campaign brief covering audience, keyword/placement strategy, ad-group structure, suggested budget, landing-page requirements, and KPI targets. Writes to `campaigns/{channel}-{slug}.md` — spec the experiment before you spend a dollar."
 ---
 
 # Plan Paid Campaign

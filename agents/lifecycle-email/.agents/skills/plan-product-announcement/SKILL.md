@@ -1,6 +1,6 @@
 ---
 name: plan-product-announcement
-description: Use when the user says "draft the {feature} announcement email" / "announcement for the launch" / "in-app + email for {feature}" — drafts both the announcement email AND the matching in-app copy (banner / modal / empty-state nudge), keyed to the launch plan at `../head-of-marketing/launches/{feature-slug}.md` if one exists.
+description: "Use when you say 'draft the {feature} announcement' / 'email + in-app for {launch}' — I write both the announcement email AND matching in-app copy (banner / modal / empty-state nudge), keyed to the Head of Marketing's launch plan if one exists. Writes to `announcements/{feature-slug}.md` — email body + in-app strings together."
 ---
 
 # Plan Product Announcement

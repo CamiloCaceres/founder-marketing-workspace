@@ -1,6 +1,6 @@
 ---
 name: write-blog-post
-description: Use when the user says "draft a blog post" / "write a post about {topic}" / "blog on {keyword}" — produces a full 2000-3000 word draft with H1/H2/H3 structure, meta description, URL slug, internal link suggestions, and a call-to-action, written to `blog-posts/{slug}.md`.
+description: "Use when you say 'draft a blog post on {topic}' / 'write a post about {X}' — I write a 2,000–3,000-word draft with H1/H2/H3, meta description, URL slug, internal-link suggestions, and one clear CTA. Writes to `blog-posts/{slug}.md` plus a Google Doc if connected. Reads like you wrote it."
 ---
 
 # Write Blog Post

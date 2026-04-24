@@ -1,6 +1,6 @@
 ---
 name: write-headline-variants
-description: Use when the user says "10 headlines for {page}" / "headline variants" / "alternative hero hooks" — produces 10 headline + subhead pairs for the named page, each grounded in a verbatim customer quote, review line, or positioning-doc claim. No marketer-speak. Top 3 ranked to test first.
+description: "Use when you say '10 headlines for {page}' / 'headline variants' / 'alternative hero hooks' — I produce 10 headline + subhead pairs for the named page, each grounded in a verbatim customer quote, review line, or positioning-doc claim. No marketer-speak. Top 3 ranked to test first. Writes to `headline-variants/{page-slug}.md`."
 ---
 
 # Write Headline Variants

@@ -1,6 +1,6 @@
 ---
 name: optimize-paywall-upgrade
-description: Use when the user says "upgrade paywall" / "pricing modal" / "free-to-paid prompt" / "trial expiration screen" — audits and rewrites the in-product upgrade moment. Covers timing, plan comparison clarity, objection handling, social proof placement, CTA copy, dismissal pattern. In-product upgrade — NOT the public pricing page (that's write-page-copy).
+description: "Use when you say 'upgrade paywall' / 'pricing modal' / 'free-to-paid prompt' / 'trial expiration screen' — I rewrite the upgrade moment: headline, value stack, price anchoring, CTA, social proof. Grounded in why users actually upgrade (from your call insights). Writes to `paywall-audits/{slug}.md`."
 ---
 
 # Optimize Paywall / Upgrade

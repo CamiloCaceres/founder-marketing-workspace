@@ -1,6 +1,6 @@
 ---
 name: synthesize-research
-description: Use when the user says "research {topic}" / "I need a brief on {topic}" / "what's the state of {topic}" — runs deep research via any Composio-connected search/research tool and returns a structured brief the user or another agent can act on.
+description: "Use when you say 'research {topic}' / 'I need a brief on {X}' — I run deep research via Exa (or your connected search provider), cite sources, and deliver a structured brief with 3–5 angles worth writing about. Writes to `research/{slug}.md` — hand to SEO for blog drafting or Growth for ad angles."
 ---
 
 # Synthesize Research

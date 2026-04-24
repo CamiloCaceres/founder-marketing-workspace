@@ -1,6 +1,6 @@
 ---
 name: find-backlinks
-description: Use when the user says "find backlinks" / "who should we pitch for links" / "link-building plan" — identifies target sites via Composio backlink / SEO tool or SERP analysis, drafts per-target pitch emails, and writes a dated backlink plan at `backlink-plans/{YYYY-MM-DD}.md`.
+description: "Use when you say 'find backlinks' / 'who should we pitch for links' / 'link-building plan' — I identify target sites via SERP + your connected Ahrefs / backlink tool that match your niche, then draft per-target pitch emails grounded in what you actually offer them. Writes to `backlink-plans/{date}.md` with outreach drafts per target."
 ---
 
 # Find Backlinks

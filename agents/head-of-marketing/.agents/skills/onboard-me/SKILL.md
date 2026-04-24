@@ -1,6 +1,6 @@
 ---
 name: onboard-me
-description: Use when the user explicitly says "onboard me" / "set me up" / "let's get started", or on the first real task when no `config/profile.json` exists — open with a scope + modality preamble naming the three topics (company, ICP, voice) AND the best way to share each, then run a tight 90-second 3-question interview and write results to `config/`.
+description: "Use when you say 'onboard me' / 'set me up', or on the first real task before `config/` exists — I ask 3 quick questions (~90s) about your company, ICP, and voice, then write what I learn to `config/`. Everything else I pick up just-in-time as we work."
 ---
 
 # Onboard Me

@@ -1,6 +1,6 @@
 ---
 name: write-newsletter
-description: Use when the user says "draft this week's newsletter" / "newsletter on {theme}" / "weekly update email" — pulls source material (user paste, a recent blog or repurposed asset via `../seo-content/outputs.json`, or internal updates) and produces one edition with subject + preview + body organized around a single clear through-line.
+description: "Use when you say 'draft this week's newsletter' / 'newsletter on {theme}' — I write subject + preview + body with one clear through-line (not 5 updates glued together). Pulls source material from the SEO agent's outputs if you point me there. Writes to `newsletters/{date}.md` ready for Beehiiv / Substack / your ESP."
 ---
 
 # Write Newsletter

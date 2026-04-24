@@ -1,6 +1,6 @@
 ---
 name: onboard-me
-description: Use when the user explicitly says "onboard me" / "set me up" / "let's get started", or on the first real task when no `config/profile.json` exists — open with a scope + modality preamble naming the three topics (primary page + conversion event, voice, leakiest surface) AND the best way to share each, then run a tight 90-second 3-question interview and write results to `config/`.
+description: "Use when you say 'onboard me' / 'set me up' — I ask 3 quick questions (~90s): your primary page + conversion event, your voice, and which surfaces are leaking (forms / signup / paywall / popup / onboarding). Then I can rewrite pages, generate variants, and optimize the surfaces that leak conversion."
 ---
 
 # Onboard Me
