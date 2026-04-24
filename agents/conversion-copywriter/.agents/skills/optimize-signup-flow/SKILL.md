@@ -1,6 +1,7 @@
 ---
 name: optimize-signup-flow
 description: "Use when you say 'signup flow review' / 'signup dropoff' / 'trial signup isn't working' — I audit the whole signup funnel: pre-signup page, email field, password requirements, verification, first-screen post-signup. Copy + field-level recommendations. Writes to `signup-flow-reviews/{slug}.md`."
+integrations: [firecrawl]
 ---
 
 # Optimize Signup Flow

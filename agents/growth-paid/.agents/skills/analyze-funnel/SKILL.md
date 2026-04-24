@@ -1,6 +1,7 @@
 ---
 name: analyze-funnel
 description: "Use when you say 'weekly funnel readout' / 'where are we leaking' / 'analyze the signup funnel' — I compute conversion at each step (from your connected PostHog / GA4 / Mixpanel, or paste), flag the biggest drop, and recommend 2–3 experiments ranked by expected lift × effort. Writes to `funnel-reviews/{date}.md` — clear next actions, not a dashboard dump."
+integrations: [posthog, mixpanel]
 ---
 
 # Analyze Funnel

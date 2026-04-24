@@ -1,6 +1,7 @@
 ---
 name: plan-paid-campaign
 description: "Use when you say 'plan a paid campaign' / 'Google Ads for {keyword}' / 'should we run ads on {channel}' — I produce a full campaign brief covering audience, keyword/placement strategy, ad-group structure, suggested budget, landing-page requirements, and KPI targets. Writes to `campaigns/{channel}-{slug}.md` — spec the experiment before you spend a dollar."
+integrations: [googleads, metaads, linkedin]
 ---
 
 # Plan Paid Campaign

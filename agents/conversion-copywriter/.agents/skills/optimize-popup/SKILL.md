@@ -1,6 +1,7 @@
 ---
 name: optimize-popup
 description: "Use when you say 'exit popup' / 'modal copy' / 'lead-capture popup' / 'announcement banner' — I write popup copy (hook, offer, dismiss/accept CTAs) tied to a trigger (scroll, exit, time-on-page) with targeting recommendations. Writes to `popup-specs/{slug}.md`."
+integrations: [firecrawl]
 ---
 
 # Optimize Popup

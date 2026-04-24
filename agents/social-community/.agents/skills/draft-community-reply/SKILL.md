@@ -1,6 +1,7 @@
 ---
 name: draft-community-reply
 description: "Use when you say 'draft a Reddit reply to {URL}' / 'respond to this thread' / 'community reply' — I pull the source thread (via Composio / Firecrawl) and draft a value-first reply. Helpful first, link only if it truly belongs. Writes to `community-replies/{source-slug}.md`."
+integrations: [reddit, firecrawl]
 ---
 
 # Draft Community Reply

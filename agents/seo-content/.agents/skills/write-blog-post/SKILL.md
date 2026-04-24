@@ -1,6 +1,7 @@
 ---
 name: write-blog-post
 description: "Use when you say 'draft a blog post on {topic}' / 'write a post about {X}' — I write a 2,000–3,000-word draft with H1/H2/H3, meta description, URL slug, internal-link suggestions, and one clear CTA. Writes to `blog-posts/{slug}.md` plus a Google Doc if connected. Reads like you wrote it."
+integrations: [googledocs, notion]
 ---
 
 # Write Blog Post

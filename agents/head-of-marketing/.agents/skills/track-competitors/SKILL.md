@@ -1,6 +1,7 @@
 ---
 name: track-competitors
 description: "Use when you say 'weekly competitor pulse' / 'what did {competitor} ship' / 'teardown of {X}' — I scan each competitor's recent blog posts, product updates (via Firecrawl), ad activity (Meta / LinkedIn Ad Library), and social, filtering real threats from noise. Works as a single-competitor teardown or an N-competitor weekly digest. Writes to `competitor-briefs/{slug}.md`."
+integrations: [firecrawl, perplexityai]
 ---
 
 # Track Competitors

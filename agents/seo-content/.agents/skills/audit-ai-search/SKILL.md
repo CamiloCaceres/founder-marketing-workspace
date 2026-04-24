@@ -1,6 +1,7 @@
 ---
 name: audit-ai-search
 description: "Use when you say 'audit AI search visibility' / 'GEO audit' / 'how do we show up in ChatGPT / Perplexity / Gemini' — I probe AI engines for your brand and category terms, then recommend Generative Engine Optimization changes — schema, mentions, source authority, content tweaks. Writes to `ai-search-audits/{date}.md`."
+integrations: [perplexityai, firecrawl]
 ---
 
 # Audit AI Search

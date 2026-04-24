@@ -1,6 +1,7 @@
 ---
 name: draft-churn-save
 description: "Use when you say 'save email for {account}' / 'churn-save' / 'cancel-flow email' — I draft a save email that avoids guilt tactics and fake scarcity, offering a genuine option (pause / downgrade further / concierge help / refund). Tone matches your voice. Writes to `saves/{persona}.md`."
+integrations: [stripe, hubspot]
 ---
 
 # Draft Churn-Save

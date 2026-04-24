@@ -1,6 +1,7 @@
 ---
 name: plan-product-announcement
 description: "Use when you say 'draft the {feature} announcement' / 'email + in-app for {launch}' — I write both the announcement email AND matching in-app copy (banner / modal / empty-state nudge), keyed to the Head of Marketing's launch plan if one exists. Writes to `announcements/{feature-slug}.md` — email body + in-app strings together."
+integrations: [customerio, mailchimp]
 ---
 
 # Plan Product Announcement

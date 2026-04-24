@@ -1,6 +1,7 @@
 ---
 name: design-lifecycle-campaign
 description: "Use when you say 'design a drip' / 're-activation campaign' / 'lifecycle for {segment}' — I build an event-triggered drip with trigger event, frequency rules, branching by user action, and drafted copy per email. Honest about when to stop emailing. Writes to `drips/{slug}.md` with every branch labeled."
+integrations: [customerio, loops]
 ---
 
 # Design Lifecycle Campaign

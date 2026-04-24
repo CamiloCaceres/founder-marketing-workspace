@@ -1,6 +1,7 @@
 ---
 name: optimize-form
 description: "Use when you say 'audit my form' / 'too many fields' / 'demo form isn't converting' — I review a form (demo / contact / lead), flag unnecessary fields, rewrite labels + helper text, and sequence fields by friction. Writes to `form-audits/{form-slug}.md`. For signup flows, see `optimize-signup-flow`."
+integrations: [firecrawl]
 ---
 
 # Optimize Form

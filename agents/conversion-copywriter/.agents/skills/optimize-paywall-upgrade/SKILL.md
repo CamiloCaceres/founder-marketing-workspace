@@ -1,6 +1,7 @@
 ---
 name: optimize-paywall-upgrade
 description: "Use when you say 'upgrade paywall' / 'pricing modal' / 'free-to-paid prompt' / 'trial expiration screen' — I rewrite the upgrade moment: headline, value stack, price anchoring, CTA, social proof. Grounded in why users actually upgrade (from your call insights). Writes to `paywall-audits/{slug}.md`."
+integrations: [firecrawl]
 ---
 
 # Optimize Paywall / Upgrade

@@ -1,6 +1,7 @@
 ---
 name: critique-landing-page
 description: "Use when you say 'critique {url}' / 'teardown my landing page' / 'why isn't {page} converting' — I fetch the page via Firecrawl and score 6 dimensions 0–3 (headline clarity, value prop, social proof, CTA, objection handling, visual hierarchy), then give a prioritized fix list — not a generic lecture. Writes to `cro-critiques/{url-slug}-{date}.md`. For a rewrite, Conversion Copywriter's `write-page-copy` takes it from here."
+integrations: [firecrawl]
 ---
 
 # Critique Landing Page

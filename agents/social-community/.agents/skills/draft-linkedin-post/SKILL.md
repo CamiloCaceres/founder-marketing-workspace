@@ -1,6 +1,7 @@
 ---
 name: draft-linkedin-post
 description: "Use when you say 'draft a LinkedIn post about {topic}' / 'post about {idea}' — I write a LinkedIn-native post with a hook in the first line, whitespace, one clear takeaway, and a CTA or question to spark replies. Uses your saved voice samples so it doesn't sound like AI. Writes to `posts/linkedin-{slug}.md` — paste into LinkedIn when you're ready."
+integrations: [linkedin]
 ---
 
 # Draft LinkedIn Post

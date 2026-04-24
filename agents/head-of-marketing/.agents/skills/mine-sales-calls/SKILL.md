@@ -1,6 +1,7 @@
 ---
 name: mine-sales-calls
 description: "Use when you say 'mine my sales calls' / 'extract objections from my calls' — I pull transcripts from your connected meeting app (Gong / Fireflies / Circleback), extract verbatim customer phrases, rank pains by frequency, surface objection patterns, and flag positioning wedges. Writes to `call-insights/{date}.md` — the single best source for ad copy and landing-page headlines."
+integrations: [gong, fireflies]
 ---
 
 # Mine Sales Calls

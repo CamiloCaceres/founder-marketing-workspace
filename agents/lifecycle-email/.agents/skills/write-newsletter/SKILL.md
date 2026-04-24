@@ -1,6 +1,7 @@
 ---
 name: write-newsletter
 description: "Use when you say 'draft this week's newsletter' / 'newsletter on {theme}' — I write subject + preview + body with one clear through-line (not 5 updates glued together). Pulls source material from the SEO agent's outputs if you point me there. Writes to `newsletters/{date}.md` ready for Beehiiv / Substack / your ESP."
+integrations: [mailchimp, kit, loops]
 ---
 
 # Write Newsletter

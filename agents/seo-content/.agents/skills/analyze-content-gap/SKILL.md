@@ -1,6 +1,7 @@
 ---
 name: analyze-content-gap
 description: "Use when you say 'content gap vs {competitor}' / 'what are we missing' / 'where can we out-rank {X}' — I crawl their content via Firecrawl, compare to ours, and rank gaps by search volume × how easily we could take the topic. Writes to `content-gap-analyses/{competitor}-{date}.md` with a first-draft brief per gap."
+integrations: [firecrawl, semrush]
 ---
 
 # Analyze Content Gap

@@ -1,6 +1,7 @@
 ---
 name: write-page-copy
 description: "Use when you say 'write copy for {page}' / 'rewrite my homepage' / 'draft the pricing page' / 'headline + body for {landing page}' — I write full page copy grounded in your positioning and real customer language (from your call insights or G2 / Capterra reviews). Sections, headlines, bodies, CTAs, social-proof placement. Writes to `page-copy/{page-slug}.md`."
+integrations: [firecrawl]
 ---
 
 # Write Page Copy
