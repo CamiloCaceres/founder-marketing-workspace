@@ -27,6 +27,11 @@
       "badge": "activity"
     },
     {
+      "id": "routines",
+      "label": "Routines",
+      "builtIn": "routines"
+    },
+    {
       "id": "job-description",
       "label": "Job Description",
       "builtIn": "job-description"
@@ -45,7 +50,8 @@
   "defaultTab": "overview",
   "agentSeeds": {
     "outputs.json": "[]",
-    ".houston/activity.json": "[{\"id\":\"7a4e0c5a-9b2f-4d1b-8f6e-c0b4d2a7e9f3\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: which social platforms you're active on (connected via Composio if possible), how you write (connected inbox via Composio, or 2-3 recent posts pasted), and the 3-5 topics / POV you post about. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]"
+    ".houston/activity.json": "[{\"id\":\"7a4e0c5a-9b2f-4d1b-8f6e-c0b4d2a7e9f3\",\"title\":\"Onboard me — 3 quick questions (~90s)\",\"description\":\"Click this card, then send any message to kick off onboarding. I'll ask three things: which social platforms you're active on (connected via Composio if possible), how you write (connected inbox via Composio, or 2-3 recent posts pasted), and the 3-5 topics / POV you post about. Best modality per topic: connected app via Composio (Integrations tab) > file/URL > paste.\",\"status\":\"needs_you\"}]",
+    ".houston/routines/routines.json": "[{\"id\":\"weekly-linkedin-digest\",\"name\":\"Weekly LinkedIn digest\",\"description\":\"Monday digest — own-post stats vs 4-week average + 3-5 network posts worth commenting on.\",\"prompt\":\"Run the weekly LinkedIn digest using the digest-linkedin-activity skill.\\n\\n1. Read ../head-of-marketing/product-marketing-context.md. If missing or empty, state that positioning is missing and stop — do NOT surface activity unless user action is required.\\n2. Read config/ for LinkedIn usage. If LinkedIn isn't one of the configured platforms, stop and finish silently.\\n3. If the LinkedIn integration isn't connected via Composio, state which category is missing and stop — do NOT surface activity unless user action is required.\\n4. Pull my last 7 days of posts — reach, engagement rate, new followers — and compare to the trailing 4-week average.\\n5. If I posted zero times in the last 7 days AND nothing notable is happening in my network, finish silently.\\n6. Otherwise, write the digest to linkedin-digests/{YYYY-MM-DD}.md and log in outputs.json. Call out what over/underperformed with a one-line hypothesis, then surface 3-5 notable posts from my network worth commenting on with a draft reply for each.\",\"schedule\":\"0 9 * * 1\",\"enabled\":true,\"suppress_when_silent\":true,\"created_at\":\"2026-04-23T00:00:00Z\",\"updated_at\":\"2026-04-23T00:00:00Z\"},{\"id\":\"weekly-social-calendar\",\"name\":\"Weekly social calendar\",\"description\":\"Sunday evening — drafts next week's Mon-Fri social plan across platforms, repurposing recent SEO / marketing artifacts.\",\"prompt\":\"Plan next week's social calendar using the plan-social-calendar skill.\\n\\n1. Read ../head-of-marketing/product-marketing-context.md. If missing or empty, state that positioning is missing and stop — do NOT surface activity unless user action is required.\\n2. Read config/ for the active platforms and topics.\\n3. Read ../seo-content/outputs.json and ../head-of-marketing/outputs.json (tolerate missing files) so I repurpose existing angles rather than invent duplicates.\\n4. If required social platform integrations aren't connected via Composio for reading voice / context, proceed anyway using config/voice.md.\\n5. Build a Mon-Fri plan per platform — each slot with angle, hook, source artifact, and status. Balance original posts, repurposed content, and community engagement.\\n6. Append to the living social-calendar.md and save the week's view to social-calendars/{YYYY-WNN}.md. Log in outputs.json.\\n7. This is a planning routine — always surface the calendar so the founder can review before the week starts. Do NOT end with ROUTINE_OK.\",\"schedule\":\"0 18 * * 0\",\"enabled\":true,\"suppress_when_silent\":true,\"created_at\":\"2026-04-23T00:00:00Z\",\"updated_at\":\"2026-04-23T00:00:00Z\"}]"
   },
   "useCases": [
     {
